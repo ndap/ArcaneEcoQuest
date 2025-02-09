@@ -28,6 +28,221 @@ const questions = [
         ],
         correct: 1,
     },
+
+    {
+        question: "Tumbuhan yang hidup di air disebut:",
+        answers: [
+          "Tanaman darat",
+          "Tanaman hidrofit",
+          "Tanaman xerofit",
+          "Tanaman epifit",
+        ],
+        correct: 1,
+      },
+      {
+        question: "Apa yang dimaksud dengan ekosistem?",
+        answers: [
+          "Hanya tanaman yang hidup di dalam tanah",
+          "Tempat tinggal bagi hewan dan tumbuhan",
+          "Interaksi antara makhluk hidup dan lingkungan",
+          "Semua tumbuhan di dunia",
+        ],
+        correct: 2,
+      },
+      {
+        question: "Bagian tanaman yang menyerap air adalah:",
+        answers: ["Bunga", "Daun", "Akar", "Batang"],
+        correct: 2,
+      },
+      {
+        question: "Hewan yang memakan tanaman disebut:",
+        answers: ["Karnivora", "Herbivora", "Omnivora", "Dekomposer"],
+        correct: 1,
+      },
+      {
+        question:
+          "Proses yang terjadi pada daun tanaman untuk menghasilkan makanan adalah:",
+        answers: ["Evaporasi", "Fotosintesis", "Transpirasi", "Respirasi"],
+        correct: 1,
+      },
+      {
+        question: "Contoh tumbuhan yang hidup di tempat kering dan panas adalah:",
+        answers: ["Kaktus", "Teratai", "Padi", "Anggrek"],
+        correct: 0,
+      },
+      {
+        question: "Tanaman yang hidup di hutan tropis biasanya memiliki:",
+        answers: [
+          "Daun yang tebal dan lebar",
+          "Daun yang kecil",
+          "Batang yang keras",
+          "Akar yang panjang",
+        ],
+        correct: 0,
+      },
+      {
+        question: "Hewan yang memakan hewan lain disebut:",
+        answers: ["Herbivora", "Karnivora", "Omnivora", "Dekomposer"],
+        correct: 1,
+      },
+      {
+        question: "Bakteri dan jamur membantu dalam ekosistem dengan cara:",
+        answers: [
+          "Membantu tanaman tumbuh",
+          "Menguraikan bahan mati menjadi unsur hara",
+          "Membuat makanan untuk hewan",
+          "Menyebarkan benih",
+        ],
+        correct: 1,
+      },
+      {
+        question:
+          "Bagian tanaman yang biasanya berwarna hijau dan berfungsi untuk fotosintesis adalah:",
+        answers: ["Bunga", "Akar", "Batang", "Daun"],
+        correct: 3,
+      },
+      {
+        question: "Hewan yang makan tanaman dan juga daging disebut:",
+        answers: ["Karnivora", "Omnivora", "Herbivora", "Dekomposer"],
+        correct: 1,
+      },
+      {
+        question: "Proses penguapan air dari tanaman disebut:",
+        answers: ["Evaporasi", "Fotosintesis", "Transpirasi", "Kondensasi"],
+        correct: 2,
+      },
+      {
+        question: "Tanaman yang hidup di tempat basah seperti rawa disebut:",
+        answers: [
+          "Tumbuhan terestrial",
+          "Tumbuhan akuatik",
+          "Tumbuhan xerofit",
+          "Tumbuhan epifit",
+        ],
+        correct: 1,
+      },
+      {
+        question: "Tanaman yang memerlukan banyak air disebut:",
+        answers: [
+          "Tanaman xerofit",
+          "Tanaman mesofit",
+          "Tanaman hidrofit",
+          "Tanaman epifit",
+        ],
+        correct: 2,
+      },
+      {
+        question: "Hewan yang hidup dengan memakan tumbuhan disebut:",
+        answers: ["Karnivora", "Herbivora", "Omnivora", "Dekomposer"],
+        correct: 1,
+      },
+      {
+        question: "Siklus air dalam alam dimulai dengan:",
+        answers: [
+          "Fotosintesis",
+          "Penguapan",
+          "Penyerapan oleh tanaman",
+          "Pembentukan awan",
+        ],
+        correct: 1,
+      },
+      {
+        question:
+          "Tanaman yang hidup dengan mengambil makanan dari tanaman lain disebut:",
+        answers: [
+          "Tanaman autotrof",
+          "Tanaman karnivora",
+          "Tanaman parasit",
+          "Tanaman epifit",
+        ],
+        correct: 2,
+      },
+      {
+        question: "Hewan yang menguraikan bahan organik yang mati disebut:",
+        answers: ["Dekomposer", "Karnivora", "Herbivora", "Omnivora"],
+        correct: 0,
+      },
+      {
+        question: "Proses alami yang menghasilkan hujan adalah:",
+        answers: [
+          "Fotosintesis",
+          "Penguapan dan kondensasi",
+          "Transpirasi",
+          "Pernafasan",
+        ],
+        correct: 1,
+      },
+      {
+        question: "Tumbuhan yang hidup di atas pohon lain disebut:",
+        answers: [
+          "Tanaman parasit",
+          "Tanaman epifit",
+          "Tanaman terestrial",
+          "Tanaman hidrofit",
+        ],
+        correct: 1,
+      },
+      {
+        question: "Apakah yang dimaksud dengan rantai makanan?",
+        answers: [
+          "Urutan makanan yang dimakan oleh makhluk hidup",
+          "Proses fotosintesis pada tumbuhan",
+          "Proses tumbuhnya tanaman",
+          "Semua makhluk hidup yang ada di hutan",
+        ],
+        correct: 0,
+      },
+      {
+        question: "Hewan yang menjadi mangsa disebut:",
+        answers: ["Predator", "Konsumen", "Mangsa", "Herbivora"],
+        correct: 2,
+      },
+      {
+        question: "Apa yang dimaksud dengan konsumen dalam ekosistem?",
+        answers: [
+          "Organisme yang memproduksi makanan",
+          "Organisme yang memakan produsen atau organisme lain",
+          "Organisme yang menguraikan bahan organik",
+          "Organisme yang hidup di dalam tanah",
+        ],
+        correct: 1,
+      },
+      {
+        question: "Tumbuhan yang dapat hidup dengan sedikit air disebut:",
+        answers: [
+          "Tanaman mesofit",
+          "Tanaman xerofit",
+          "Tanaman hidrofit",
+          "Tanaman epifit",
+        ],
+        correct: 1,
+      },
+      {
+        question: "Bagian tanaman yang menghubungkan akar dengan daun adalah:",
+        answers: ["Bunga", "Batang", "Daun", "Akar"],
+        correct: 1,
+      },
+      {
+        question: "Sumber energi utama bagi tanaman adalah:",
+        answers: ["Tanah", "Air", "Cahaya matahari", "Udara"],
+        correct: 2,
+      },
+      {
+        question: "Pohon yang biasanya ditemukan di daerah tropis adalah:",
+        answers: ["Pohon pinus", "Pohon kelapa", "Pohon maple", "Pohon ek"],
+        correct: 1,
+      },
+      {
+        question: "Tanaman yang dapat hidup dengan sedikit air disebut:",
+        answers: [
+          "Tanaman mesofit",
+          "Tanaman xerofit",
+          "Tanaman hidrofit",
+          "Tanaman epifit",
+        ],
+        correct: 1,
+      },
+  
     // ... (other questions)
 ];
 
