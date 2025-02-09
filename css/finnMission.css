@@ -32,7 +32,7 @@ body {
 .info h2 {
     font-size: 28px;
     margin-bottom: 15px;
-    border-bottom: 2px solid #5eff00a4;
+    border-bottom: 2px solid #ffa600a4;
     padding-bottom: 5px;
 }
 .info p {
@@ -68,7 +68,7 @@ body {
     margin: 20px auto;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #ffa600a4;
     color: white;
     border: none;
     border-radius: 5px;
@@ -79,7 +79,7 @@ body {
 }
 
 #next-button:hover {
-    background-color: #45a049;
+    background-color: #ffa600;
     transform: scale(1.05);
 }
 
