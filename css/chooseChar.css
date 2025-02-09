@@ -1,0 +1,46 @@
+body {
+    background-image: url(/assets/image/bgChooseChar.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh; 
+    width: 100vw;  
+    margin: 0;     
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.425);
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
+img {
+    display: inline-block;
+    width: 100%;
+    max-width: 735px; /* Maksimal 800px */
+    height: auto; /* Menjaga proporsi gambar */
+    margin-top: -16px;
+}
+
+.img-character {
+    display: flex;              /* Menggunakan Flexbox untuk menata gambar secara horizontal */
+    justify-content: space-between; /* Menyebar gambar dengan jarak rata */
+    gap: 1px;                   /* Jarak antar gambar jika diperlukan */
+  }
+  
+  .img-character img {
+    width: 400px;               /* Menentukan lebar gambar */
+    height: 400px;              /* Menentukan tinggi gambar */
+    object-fit: contain;        /* Menjaga gambar tetap proporsional dan tidak terpotong */
+    margin-right: 10px;         /* Menambahkan jarak kanan pada gambar */
+  }
+  
+  
+  
+  
+    
+
+

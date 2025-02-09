@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Interface | EcoQuest</title>
+    <link rel="stylesheet" href="./css/inteface.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Overlay untuk loading -->
+    <div id="fade-out-overlay" class="fade-out-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Container untuk title dan tombol -->
+    <div class="title-container">
+        <img src="./assets/sprite/title.png" alt="Game Title" class="title-image" width="590" height="590">
+        
+        <div class="button-container">
+            <button class="btn start-btn">
+                <img src="./assets/sprite/ButtonStart.png" alt="Start Button" class="button-image">
+            </button>
+            <button class="btn quit-btn">
+                <img src="./assets/sprite/ButtonQuit.png" alt="Quit Button" class="button-image">
+            </button>
+        </div>
+    </div>
+
+    <!-- Tombol untuk membuka modal volume -->
+    <button id="play-music">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- Modal pengaturan volume -->
+    <div id="volume-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <center><h2>Atur Volume dan Musik</h2></center>
+            <div class="volume-control">
+                <span id="volume-icon">🔊</span>
+                <button id="toggle-music">
+                    <i class="fas fa-pause"></i>
+                </button>
+            </div>
+            <input 
+                type="range" 
+                class="volume-slider" 
+                min="0" 
+                max="1" 
+                step="0.1" 
+                value="0.5"
+            />
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="background-music" src="./assets/sounds/RoyaltyFantasy.mp3" loop autoplay>
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="button-click-sound" src="./assets/sounds/buttonClick.mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="./js/interface.js"></script>
+</body>
+</html>

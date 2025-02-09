@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scene Dialog | EcoQuest</title>
+    <link rel="stylesheet" href="../css/dialog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="character-container">
+        <div class="character-box" id="charBoxLeft">
+            <img src="../assets/sprite/kaelDialog.png" class="character active" id="charLeft" alt="Character Left">
+        </div>
+        <div class="character-box" id="charBoxRight">
+            <img src="../assets/sprite/eldenDialog.png" class="character" id="charRight" alt="Character Right">
+        </div>
+    </div>
+
+    <div class="dialog-container" id="dialogBox">
+        <div class="dialog-text" id="dialogText"></div>
+        <button class="next-button" onclick="nextDialog()">Next</button>
+    </div>
+
+    <script src="../js/dialog.js"></script>
+</body>
+</html>
