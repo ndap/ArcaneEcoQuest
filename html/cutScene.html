@@ -1,24 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Story Page | EcoQuest</title>
-  <link rel="stylesheet" href="../css/cutScene.css">
-</head>
-<body>
-  
-  <!-- Video Player -->
-  <video id="videoPlayer" autoplay>
-    <source src="../assets/video/longTimeAgo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story Page | EcoQuest</title>
+    <link rel="stylesheet" href="../css/cutScene.css" />
+    <style>
+      #playButton {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #skipButton {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Play Button -->
+    <button id="playButton">Play Video</button>
 
-  <!-- Loading Screen -->
-  <div id="loadingScreen">
-    <span>Loading...</span>
-  </div>
+    <!-- Skip Button -->
+    <button id="skipButton">Skip Video</button>
 
-  <script src="../js/cutScene.js"></script>
-</body>
+    <!-- Video Player -->
+    <video id="videoPlayer" autoplay>
+      <source src="../assets/video/longTimeAgo.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+      <span>Loading...</span>
+    </div>
+
+    <script src="../js/cutScene.js"></script>
+    <script>
+      document
+        .getElementById("playButton")
+        .addEventListener("click", function () {
+          var video = document.getElementById("videoPlayer");
+          video.play();
+          document.getElementById("skipButton").style.display = "block";
+        });
+
+      document
+        .getElementById("skipButton")
+        .addEventListener("click", function () {
+          window.location.href = "fightTheMonster.html";
+        });
+
+      document
+        .getElementById("videoPlayer")
+        .addEventListener("play", function () {
+          document.getElementById("playButton").style.display = "none";
+        });
+    </script>
+  </body>
 </html>

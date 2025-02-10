@@ -1,27 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scene Dialog | EcoQuest</title>
-    <link rel="stylesheet" href="../css/dialog.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="../css/dialog.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .fade-in {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1000;
+        animation: fadeIn 2s forwards;
+      }
+
+      .fade-out {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 2000;
+        animation: fadeOut 2s forwards;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fade-in" id="fadeInOverlay"></div>
     <div class="character-container">
-        <div class="character-box" id="charBoxLeft">
-            <img src="../assets/sprite/kaelDialog.png" class="character active" id="charLeft" alt="Character Left">
-        </div>
-        <div class="character-box" id="charBoxRight">
-            <img src="../assets/sprite/eldenDialog.png" class="character" id="charRight" alt="Character Right">
-        </div>
+      <div class="character-box" id="charBoxLeft">
+        <img
+          src="../assets/sprite/kaelDialog.png"
+          class="character active"
+          id="charLeft"
+          alt="Character Left"
+        />
+      </div>
+      <div class="character-box" id="charBoxRight">
+        <img
+          src="../assets/sprite/eldenDialog.png"
+          class="character"
+          id="charRight"
+          alt="Character Right"
+        />
+      </div>
     </div>
 
     <div class="dialog-container" id="dialogBox">
-        <div class="dialog-text" id="dialogText"></div>
-        <button class="next-button" onclick="nextDialog()">Next</button>
+      <div class="dialog-text" id="dialogText"></div>
+      <div class="arrow"></div>
+      <button class="next-button" onclick="nextDialog()">Next</button>
     </div>
 
+    <div class="fade-out" id="fadeOutOverlay" style="display: none"></div>
+
+    <audio id="clickSound" src="../assets/sounds/ButtonClick.mp3"></audio>
+
+    <script>
+      window.addEventListener("load", function () {
+        const fadeInOverlay = document.getElementById("fadeInOverlay");
+        fadeInOverlay.addEventListener("animationend", function () {
+          fadeInOverlay.style.display = "none";
+        });
+      });
+
+      function nextDialog() {
+        const clickSound = document.getElementById("clickSound");
+        clickSound.play();
+        // Existing code for next dialog functionality
+      }
+
+      function endDialog() {
+        const fadeOutOverlay = document.getElementById("fadeOutOverlay");
+        fadeOutOverlay.style.display = "block";
+        fadeOutOverlay.addEventListener("animationend", function () {
+          fadeOutOverlay.style.display = "none";
+        });
+      }
+    </script>
     <script src="../js/dialog.js"></script>
-</body>
+  </body>
 </html>

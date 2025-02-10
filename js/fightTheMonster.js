@@ -263,7 +263,7 @@ let wrongAnswers = 0;
 let timerInterval;
 let timeLeft = 12;
 const maxWrongAnswers = 3;
-const monsterHitPoints = 7;
+const monsterHitPoints = 1;
 
 function startTimer() {
     clearInterval(timerInterval);

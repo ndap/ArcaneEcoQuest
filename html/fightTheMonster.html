@@ -1,71 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fight The Monster | EcoQuest</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/fightTheMonster.css">
-</head>
-<body class="fade-in">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/fightTheMonster.css" />
+    <style>
+      .button-container {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+
+      #playMusicButton {
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 15px; /* Reduced padding */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px; /* Reduced font size */
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+
+      #playMusicButton:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body class="fade-in">
     <audio id="buttonClickSound" src="../assets/sounds/ButtonClick.mp3"></audio>
-    <audio id="swordbacksound" src="../assets/sounds/SwordSoundEffect.mp3"></audio>
-    <audio id="fightBackgroundSound" src="../assets/sounds/FightBS.mp3" autoplay loop></audio>
+    <audio
+      id="swordbacksound"
+      src="../assets/sounds/SwordSoundEffect.mp3"
+    ></audio>
+    <audio
+      id="fightBackgroundSound"
+      src="../assets/sounds/FightBS.mp3"
+      autoplay
+      loop
+    ></audio>
 
     <div class="game-container">
-        <div class="game-screen">
-            <div class="health player-health">
-                <span class="health-icon">❤️</span>
-                <div class="health-bar">
-                    <div class="health-fill" id="playerHealth" style="width: 100%"></div>
-                </div>
-            </div>
-            <div class="health monster-health">
-                <span class="health-icon">❤️</span>
-                <div class="health-bar">
-                    <div class="health-fill" id="monsterHealth" style="width: 100%"></div>
-                </div>
-            </div>
-            <div class="character"></div>
-            <div class="monster"></div>
+      <div class="game-screen">
+        <div class="health player-health">
+          <span class="health-icon">❤️</span>
+          <div class="health-bar">
+            <div
+              class="health-fill"
+              id="playerHealth"
+              style="width: 100%"
+            ></div>
+          </div>
         </div>
+        <div class="health monster-health">
+          <span class="health-icon">❤️</span>
+          <div class="health-bar">
+            <div
+              class="health-fill"
+              id="monsterHealth"
+              style="width: 100%"
+            ></div>
+          </div>
+        </div>
+        <div class="character"></div>
+        <div class="monster"></div>
+      </div>
 
-        <div class="game-footer">
-            <div class="question-container">
-                <div class="monster-info">
-                    <div class="monster-icon"></div>
-                    <div class="monster-details">
-                        <div class="monster-name">Monster</div>
-                        <div class="health-bar">
-                            <div class="health-fill" id="monsterHealthSmall" style="width: 100%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="question" id="question">
-                    <div class="timer" id="timer">12</div>
-                </div>
+      <div class="game-footer">
+        <div class="question-container">
+          <div class="monster-info">
+            <div class="monster-icon"></div>
+            <div class="monster-details">
+              <div class="monster-name">Monster</div>
+              <div class="health-bar">
+                <div
+                  class="health-fill"
+                  id="monsterHealthSmall"
+                  style="width: 100%"
+                ></div>
+              </div>
             </div>
-            <div class="answers" id="answers"></div>
+          </div>
+          <div class="question" id="question">
+            <div class="timer" id="timer">12</div>
+          </div>
         </div>
+        <div class="answers" id="answers"></div>
+      </div>
     </div>
 
     <div class="game-over" id="gameOver">
-        <h2 id="gameOverText"></h2>
-        <button id="restartButton" class="restart-btn" onclick="restartGame()" style="display: none;">Play Again</button>
-        <button id="winButton" class="win-btn" onclick="restartGame()" style="display: none;">Next Game</button>
+      <h2 id="gameOverText"></h2>
+      <button
+        id="restartButton"
+        class="restart-btn"
+        onclick="restartGame()"
+        style="display: none"
+      >
+        Play Again
+      </button>
+      <button
+        id="winButton"
+        class="win-btn"
+        onclick="restartGame()"
+        style="display: none"
+      >
+        Next Game
+      </button>
     </div>
 
     <div class="victory-overlay" id="victoryOverlay"></div>
     <div class="victory-message" id="victoryMessage">
-        Congrats, you defeated the monsters!
+      Congrats, you defeated the monsters!
     </div>
 
-    <div class="loading-screen" id="loadingScreen" style="display: none;">
-        <div class="loading-spinner"></div>
-        <p>Loading...</p>
+    <div class="loading-screen" id="loadingScreen" style="display: none">
+      <div class="loading-spinner"></div>
+      <p>Loading...</p>
+    </div>
+
+    <div class="button-container">
+      <button id="playMusicButton" onclick="toggleMusic()">Play Music</button>
     </div>
 
     <script src="../js/fightTheMonster.js"></script>
-</body>
+    <script>
+      const fightBackgroundSound = document.getElementById(
+        "fightBackgroundSound"
+      );
+      const playMusicButton = document.getElementById("playMusicButton");
+
+      // Set the volume to a lower level (e.g., 0.5 for 50% volume)
+      fightBackgroundSound.volume = 0.07;
+
+      function toggleMusic() {
+        if (fightBackgroundSound.paused) {
+          fightBackgroundSound.play();
+          playMusicButton.textContent = "Pause Music";
+        } else {
+          fightBackgroundSound.pause();
+          playMusicButton.textContent = "Play Music";
+        }
+      }
+    </script>
+  </body>
 </html>

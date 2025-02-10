@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Mirrored Tiling with Zoom & Drag</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1000px;
+            height: 1000px;
+            background-image: url('../assets/image/bgKaelGames.png');
+            background-repeat: repeat;
+            background-size: cover;
+            transform-origin: center;
+            transition: transform 0.1s ease-out;
+            cursor: default;
+        }
+
+        .background.grabbing {
+            cursor: grabbing !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <script>
+        let scale = 1;
+        let posX = 0, posY = 0;
+        let isDragging = false;
+        let startX, startY;
+        const background = document.querySelector('.background');
+
+        const minScale = 0.5;
+        const maxScale = 3;
+        const limitX = 250;
+        const limitY = 250;
+
+        window.addEventListener('wheel', (event) => {
+            let zoomIntensity = 0.1;
+            let newScale = scale + (event.deltaY < 0 ? zoomIntensity : -zoomIntensity);
+            scale = Math.min(maxScale, Math.max(minScale, newScale));
+            updateTransform();
+        });
+
+        background.addEventListener('mousedown', (event) => {
+            if (event.button !== 1) return;
+            isDragging = true;
+            startX = event.clientX - posX;
+            startY = event.clientY - posY;
+            background.classList.add("grabbing");
+            event.preventDefault();
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            if (!isDragging) return;
+            posX = event.clientX - startX;
+            posY = event.clientY - startY;
+
+            posX = Math.max(-limitX * scale, Math.min(limitX * scale, posX));
+            posY = Math.max(-limitY * scale, Math.min(limitY * scale, posY));
+            
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', (event) => {
+            if (event.button !== 1) return;
+            isDragging = false;
+            background.classList.remove("grabbing");
+        });
+
+        function updateTransform() {
+            background.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+        }
+    </script>
+</body>
+</html>
