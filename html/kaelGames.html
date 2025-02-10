@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      body,
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game with Plantable Trees</title>
+  <style>
+    body,
       html {
         margin: 0;
         padding: 0;
@@ -10,10 +13,10 @@
         height: 100%;
         overflow: hidden;
         background-image: url("../assets/image/bgKaelGames.webp");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
+        background-repeat: repeat; /* Make the background repeat */
+        background-position: top left; /* Position the background at the top-left */
       }
+
 
       #game-container {
         width: 100%;
@@ -138,19 +141,30 @@
         white-space: nowrap;
         pointer-events: none;
       }
-    </style>
-  </head>
-  <body>
-    <div id="game-container"></div>
-    <div id="tree-counter">Trees Planted: 0/23</div>
-    <script>
-      const container = document.getElementById("game-container");
-      const TILE_SIZE = 32;
 
-      const islands = [
-        // Main center island
-        {
-          shape: [
+      #kael-image {
+      position: fixed;
+      bottom: -140px; /* Posisi di bawah */
+      left: 10px; /* Posisi di kiri */
+      width: 250px; /* Ukuran gambar */
+      height: auto; /* Sesuaikan tinggi secara otomatis */
+      z-index: 9999; /* Pastikan berada di atas elemen lainnya */
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container"></div>
+  <div id="tree-counter">Trees Planted: 0/23</div>
+  <!-- Gambar Kael -->
+  <img id="kael-image" src="../assets/sprite/kael.png" alt="Kael" />
+  <script>
+    const container = document.getElementById("game-container");
+const TILE_SIZE = 32;
+
+const islands = [
+  // Main center island
+  {
+        shape: [
             "                          ",
             "          ############    ",
             "        ##############    ",
@@ -271,326 +285,308 @@
       ];
 
       const plantableLocations = new Set();
-      let treeCount = 0;
-      const MAX_TREES = 23;
+let treeCount = 0;
+const MAX_TREES = 23;
 
-      function createPlantIndicator(x, y) {
-        const indicator = document.createElement("div");
-        indicator.className = "plant-indicator";
-        indicator.style.left = `${x}px`;
-        indicator.style.top = `${y - TILE_SIZE}px`;
-        container.appendChild(indicator);
-      }
+function createPlantIndicator(x, y) {
+  const indicator = document.createElement("div");
+  indicator.className = "plant-indicator";
+  indicator.style.left = `${x}px`;
+  indicator.style.top = `${y - TILE_SIZE}px`;
+  container.appendChild(indicator);
+}
 
-      function plantTree(x, y) {
-        if (treeCount >= MAX_TREES) return;
+function plantTree(x, y) {
+  if (treeCount >= MAX_TREES) return;
 
-        const key = `${x},${y}`;
-        if (!plantableLocations.has(key)) return;
+  const key = `${x},${y}`;
+  if (!plantableLocations.has(key)) return;
 
-        plantableLocations.delete(key);
+  plantableLocations.delete(key);
 
-        // Remove the plant indicator
-        const indicators = document.querySelectorAll(".plant-indicator");
-        indicators.forEach((indicator) => {
+  // Remove the plant indicator
+  const indicators = document.querySelectorAll(".plant-indicator");
+  indicators.forEach((indicator) => {
+    if (
+      indicator.style.left === `${x}px` &&
+      indicator.style.top === `${y - TILE_SIZE}px`
+    ) {
+      indicator.remove();
+    }
+  });
+
+  // Create a container for the tree and timer
+  const treeContainer = document.createElement("div");
+  treeContainer.className = "tree-container";
+  treeContainer.style.left = `${x}px`;
+  treeContainer.style.top = `${y}px`;
+
+  // Create the tree element
+  const tree = document.createElement("div");
+  tree.className = "tree";
+  tree.style.backgroundImage = 'url("../assets/tileMap/seed.png")';
+
+  // Create the growth timer element
+  const timerElement = document.createElement("div");
+  timerElement.className = "growth-timer";
+
+  // Add elements to container
+  treeContainer.appendChild(timerElement);
+  treeContainer.appendChild(tree);
+  container.appendChild(treeContainer);
+
+  // Start time and total duration
+  const startTime = Date.now();
+  const totalDuration = 30000; // 30 seconds total
+
+  // Update timer function
+  function updateTimer() {
+    const currentTime = Date.now();
+    const elapsedTime = currentTime - startTime;
+    const remainingTime = Math.max(0, totalDuration - elapsedTime);
+
+    if (remainingTime > 0) {
+      const seconds = Math.ceil(remainingTime / 1000);
+      timerElement.textContent = `Growing: ${seconds}s`;
+      requestAnimationFrame(updateTimer);
+    } else {
+      treeContainer.removeChild(timerElement);
+    }
+  }
+
+  // Start the timer
+  updateTimer();
+
+  // Growth stages with timer
+  setTimeout(() => {
+    tree.style.backgroundImage = 'url("../assets/tileMap/Benih.png")';
+  }, 7500);
+
+  setTimeout(() => {
+    tree.style.backgroundImage =
+      'url("../assets/tileMap/BenihMagis.png")';
+  }, 15000);
+
+  setTimeout(() => {
+    tree.style.backgroundImage =
+      'url("../assets/tileMap/pohonMagis.png")';
+    tree.style.width = "90px"; // Jadi makin besar
+    tree.style.height = "90px";
+  }, 22500);
+
+  setTimeout(() => {
+    tree.style.backgroundImage =
+      'url("../assets/tileMap/pohonFinal.png")';
+    tree.style.width = "120px"; // Final form jadi paling besar
+    tree.style.height = "120px";
+    treeCount++;
+    updateTreeCounter();
+    checkCompletion();
+  }, 30000);
+}
+
+function updateTreeCounter() {
+  document.getElementById(
+    "tree-counter"
+  ).textContent = `Trees Planted: ${treeCount}/${MAX_TREES}`;
+}
+
+function checkCompletion() {
+  if (treeCount === MAX_TREES) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.style.position = "fixed";
+    popup.style.top = "50%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%)";
+    popup.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+    popup.style.color = "white";
+    popup.style.padding = "20px";
+    popup.style.borderRadius = "10px";
+    popup.style.textAlign = "center";
+    popup.style.zIndex = "10000";
+
+    popup.innerHTML = `
+      <h2>You have completed Kael's mission!</h2>
+      <button onclick="proceedToNextMission()">Proceed to next mission</button>
+    `;
+
+    // Append the popup to the body
+    document.body.appendChild(popup);
+  }
+}
+
+
+function proceedToNextMission() {
+  console.log("Proceeding to next mission...");
+}
+
+function createIsland() {
+  const baseStartX = Math.floor(window.innerWidth / (2 * TILE_SIZE));
+  const baseStartY = Math.floor(window.innerHeight / (2 * TILE_SIZE));
+  const allPlantableSpots = [];
+
+  islands.forEach((island) => {
+    const startX =
+      baseStartX - Math.floor(island.shape[0].length / 2) + island.offsetX;
+    const startY =
+      baseStartY - Math.floor(island.shape.length / 2) + island.offsetY;
+
+    for (let y = 0; y < island.shape.length; y++) {
+      for (let x = 0; x < island.shape[y].length; x++) {
+        if (island.shape[y][x] === "#") {
+          const tile = document.createElement("div");
+          tile.className = "tile";
+
+          const posX = (startX + x) * TILE_SIZE;
+          const posY = (startY + y) * TILE_SIZE;
+          tile.style.left = `${posX}px`;
+          tile.style.top = `${posY}px`;
+
           if (
-            indicator.style.left === `${x}px` &&
-            indicator.style.top === `${y - TILE_SIZE}px`
+            y === 0 ||
+            (island.shape[y - 1] && island.shape[y - 1][x] === " ")
           ) {
-            indicator.remove();
-          }
-        });
-
-        // Create a container for the tree and timer
-        const treeContainer = document.createElement("div");
-        treeContainer.className = "tree-container";
-        treeContainer.style.left = `${x}px`;
-        treeContainer.style.top = `${y}px`;
-
-        // Create the tree element
-        const tree = document.createElement("div");
-        tree.className = "tree";
-        tree.style.backgroundImage = 'url("../assets/tileMap/seed.png")';
-
-        // Create the growth timer element
-        const timerElement = document.createElement("div");
-        timerElement.className = "growth-timer";
-
-        // Add elements to container
-        treeContainer.appendChild(timerElement);
-        treeContainer.appendChild(tree);
-        container.appendChild(treeContainer);
-
-        // Start time and total duration
-        const startTime = Date.now();
-        const totalDuration = 30000; // 30 seconds total
-
-        // Update timer function
-        function updateTimer() {
-          const currentTime = Date.now();
-          const elapsedTime = currentTime - startTime;
-          const remainingTime = Math.max(0, totalDuration - elapsedTime);
-
-          if (remainingTime > 0) {
-            const seconds = Math.ceil(remainingTime / 1000);
-            timerElement.textContent = `Growing: ${seconds}s`;
-            requestAnimationFrame(updateTimer);
+            tile.classList.add("grass-top");
+          } else if (x === 0 || island.shape[y][x - 1] === " ") {
+            tile.classList.add("grass-left");
+          } else if (
+            x === island.shape[y].length - 1 ||
+            island.shape[y][x + 1] === " "
+          ) {
+            tile.classList.add("grass-right");
+          } else if (
+            y === island.shape.length - 1 ||
+            (island.shape[y + 1] && island.shape[y + 1][x] === " ")
+          ) {
+            tile.classList.add("grass-bottom");
           } else {
-            treeContainer.removeChild(timerElement);
+            tile.classList.add("dirt");
+            allPlantableSpots.push({ x: posX, y: posY });
           }
-        }
 
-        // Start the timer
-        updateTimer();
-
-        // Growth stages with timer
-        setTimeout(() => {
-          tree.style.backgroundImage = 'url("../assets/tileMap/Benih.png")';
-        }, 7500);
-
-        setTimeout(() => {
-          tree.style.backgroundImage =
-            'url("../assets/tileMap/BenihMagis.png")';
-        }, 15000);
-
-        setTimeout(() => {
-          tree.style.backgroundImage =
-            'url("../assets/tileMap/pohonMagis.png")';
-          tree.style.width = "90px"; // Jadi makin besar
-          tree.style.height = "90px";
-        }, 22500);
-
-        setTimeout(() => {
-          tree.style.backgroundImage =
-            'url("../assets/tileMap/pohonFinal.png")';
-          tree.style.width = "120px"; // Final form jadi paling besar
-          tree.style.height = "120px";
-          treeCount++;
-          updateTreeCounter();
-          checkCompletion();
-        }, 30000);
-      }
-
-      function updateTreeCounter() {
-        document.getElementById(
-          "tree-counter"
-        ).textContent = `Trees Planted: ${treeCount}/${MAX_TREES}`;
-      }
-
-      function checkCompletion() {
-        if (treeCount === MAX_TREES) {
-          const popup = document.createElement("div");
-          popup.className = "popup";
-          popup.innerHTML = `
-            <h2>You have completed Kael's mission!</h2>
-            <button onclick="proceedToNextMission()">Proceed to next mission?</button>
-          `;
-          document.body.appendChild(popup);
+          container.appendChild(tile);
         }
       }
+    }
+  });
 
-      function proceedToNextMission() {
-        console.log("Proceeding to next mission...");
-      }
+  // Randomly select 23 spots for planting
+  const selectedSpots = new Set();
+  while (selectedSpots.size < MAX_TREES && allPlantableSpots.length > 0) {
+    const randomIndex = Math.floor(Math.random() * allPlantableSpots.length);
+    const spot = allPlantableSpots[randomIndex];
+    selectedSpots.add(`${spot.x},${spot.y}`);
+    plantableLocations.add(`${spot.x},${spot.y}`);
+    createPlantIndicator(spot.x, spot.y);
+    allPlantableSpots.splice(randomIndex, 1);
+  }
+}
 
-      function createIsland() {
-        const baseStartX = Math.floor(window.innerWidth / (2 * TILE_SIZE));
-        const baseStartY = Math.floor(window.innerHeight / (2 * TILE_SIZE));
-        const allPlantableSpots = [];
+function createClouds() {
+  for (let i = 0; i < 5; i++) {
+    const cloud = document.createElement("div");
+    cloud.className = "cloud";
+    const width = Math.random() * 200 + 100;
+    const height = Math.random() * 60 + 30;
+    cloud.style.width = `${width}px`;
+    cloud.style.height = `${height}px`;
+    cloud.style.top = `${Math.random() * (window.innerHeight / 2)}px`;
+    const duration = Math.random() * 15 + 15;
+    cloud.style.animationDuration = `${duration}s`;
+    container.appendChild(cloud);
+  }
+}
 
-        islands.forEach((island) => {
-          const startX =
-            baseStartX -
-            Math.floor(island.shape[0].length / 2) +
-            island.offsetX;
-          const startY =
-            baseStartY - Math.floor(island.shape.length / 2) + island.offsetY;
+let scale = 1;
+let offsetX = 0;
+let offsetY = 0;
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let isMiddleMouseDown = false;
 
-          for (let y = 0; y < island.shape.length; y++) {
-            for (let x = 0; x < island.shape[y].length; x++) {
-              if (island.shape[y][x] === "#") {
-                const tile = document.createElement("div");
-                tile.className = "tile";
+container.addEventListener("mousedown", (e) => {
+  if (e.button === 1) {
+    // Middle mouse button
+    e.preventDefault();
+    isMiddleMouseDown = true;
+    container.classList.add("grabbing");
+    startX = e.clientX - offsetX;
+    startY = e.clientY - offsetY;
+  }
+});
 
-                const posX = (startX + x) * TILE_SIZE;
-                const posY = (startY + y) * TILE_SIZE;
-                tile.style.left = `${posX}px`;
-                tile.style.top = `${posY}px`;
+window.addEventListener("mousemove", (e) => {
+  if (isMiddleMouseDown) {
+    isDragging = true;
+    e.preventDefault();
+    offsetX = e.clientX - startX;
+    offsetY = e.clientY - startY;
+    updateTransform();
+  }
+});
 
-                if (
-                  y === 0 ||
-                  (island.shape[y - 1] && island.shape[y - 1][x] === " ")
-                ) {
-                  tile.classList.add("grass-top");
-                } else if (x === 0 || island.shape[y][x - 1] === " ") {
-                  tile.classList.add("grass-left");
-                } else if (
-                  x === island.shape[y].length - 1 ||
-                  island.shape[y][x + 1] === " "
-                ) {
-                  tile.classList.add("grass-right");
-                } else if (
-                  y === island.shape.length - 1 ||
-                  (island.shape[y + 1] && island.shape[y + 1][x] === " ")
-                ) {
-                  tile.classList.add("grass-bottom");
-                } else {
-                  tile.classList.add("dirt");
-                  allPlantableSpots.push({ x: posX, y: posY });
-                }
+window.addEventListener("mouseup", (e) => {
+  if (e.button === 1) {
+    isMiddleMouseDown = false;
+    isDragging = false;
+    container.classList.remove("grabbing");
+  }
+});
 
-                container.appendChild(tile);
-              }
-            }
-          }
-        });
+// Prevent unwanted text selection during drag
+container.addEventListener("selectstart", (e) => {
+  e.preventDefault();
+});
 
-        // Randomly select 23 spots for planting
-        const selectedSpots = new Set();
-        while (selectedSpots.size < MAX_TREES && allPlantableSpots.length > 0) {
-          const randomIndex = Math.floor(
-            Math.random() * allPlantableSpots.length
-          );
-          const spot = allPlantableSpots[randomIndex];
-          selectedSpots.add(`${spot.x},${spot.y}`);
-          plantableLocations.add(`${spot.x},${spot.y}`);
-          createPlantIndicator(spot.x, spot.y);
-          allPlantableSpots.splice(randomIndex, 1);
-        }
-      }
+function updateTransform() {
+  container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+  
+  // Gerakkan background juga saat drag
+  document.body.style.backgroundPosition = `${offsetX * 0.5}px ${offsetY * 0.5}px`;
+}
 
-      function createClouds() {
-        for (let i = 0; i < 5; i++) {
-          const cloud = document.createElement("div");
-          cloud.className = "cloud";
-          const width = Math.random() * 200 + 100;
-          const height = Math.random() * 60 + 30;
-          cloud.style.width = `${width}px`;
-          cloud.style.height = `${height}px`;
-          cloud.style.top = `${Math.random() * (window.innerHeight / 2)}px`;
-          const duration = Math.random() * 15 + 15;
-          cloud.style.animationDuration = `${duration}s`;
-          container.appendChild(cloud);
-        }
-      }
+// Handling click for tree planting
+container.addEventListener("click", (e) => {
+  if (e.button === 0 && !isDragging) {
+    // Only plant if left-click and not dragging
+    const rect = container.getBoundingClientRect();
 
-      let scale = 1;
-      let offsetX = 0;
-      let offsetY = 0;
-      let isDragging = false;
-      let startX = 0;
-      let startY = 0;
-      let isMiddleMouseDown = false;
+    // Get the click position relative to the container
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
 
-      container.addEventListener("wheel", (e) => {
-        if (!e.middleButton) {
-          e.preventDefault();
-          const delta = e.deltaY * -0.001;
-          const newScale = Math.min(Math.max(scale + delta, 0.5), 2);
+    // Calculate grid positions, ignoring zoom/drag offset
+    const gridX = Math.floor(clickX / TILE_SIZE) * TILE_SIZE;
+    const gridY = Math.floor(clickY / TILE_SIZE) * TILE_SIZE;
 
-          const rect = container.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
+    // Make sure the click falls within the plantable locations
+    if (plantableLocations.has(`${gridX},${gridY}`)) {
+      plantTree(gridX, gridY);
+    }
+  }
+  // Reset dragging flag on click
+  isDragging = false;
+});
 
-          offsetX += (x - offsetX) * (1 - newScale / scale);
-          offsetY += (y - offsetY) * (1 - newScale / scale);
+// Add event listener to handle resizing of the window
+window.addEventListener("resize", () => {
+  container.innerHTML = "";
+  scale = 1;
+  offsetX = 0;
+  offsetY = 0;
+  updateTransform();
+  createIsland();
+  createClouds();
+});
 
-          scale = newScale;
-          updateTransform();
-        }
-      });
+// Initialize the island and clouds
+createIsland();
+createClouds();
 
-      // Middle mouse button handling
-      container.addEventListener("mousedown", (e) => {
-        if (e.button === 1) {
-          // Middle mouse button
-          e.preventDefault();
-          isMiddleMouseDown = true;
-          container.classList.add("grabbing");
-          startX = e.clientX - offsetX;
-          startY = e.clientY - offsetY;
-        }
-      });
-
-      window.addEventListener("mousemove", (e) => {
-        if (isMiddleMouseDown) {
-          isDragging = true;
-          e.preventDefault();
-          offsetX = e.clientX - startX;
-          offsetY = e.clientY - startY;
-          updateTransform();
-        }
-      });
-
-      window.addEventListener("mouseup", (e) => {
-        if (e.button === 1) {
-          isMiddleMouseDown = false;
-          isDragging = false;
-          container.classList.remove("grabbing");
-        }
-      });
-
-      // Prevent middle-click scroll
-      window.addEventListener("auxclick", (e) => {
-        if (e.button === 1) {
-          e.preventDefault();
-        }
-      });
-
-      function updateTransform() {
-        container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-
-        // Gerakkan background juga saat drag
-        document.body.style.backgroundPosition = `${offsetX * 0.5}px ${
-          offsetY * 0.5
-        }px`;
-      }
-
-      function createTile(x, y, mirrored = false) {
-        const tile = document.createElement("div");
-        tile.classList.add("tile");
-        tile.style.left = `${x}px`;
-        tile.style.top = `${y}px`;
-        if (mirrored) {
-          tile.classList.add("mirrored");
-        }
-        container.appendChild(tile);
-      }
-
-      container.addEventListener("click", (e) => {
-        if (e.button === 0 && !isDragging) {
-          // Only plant if left click and not dragging
-          const rect = container.getBoundingClientRect();
-          const clickX = (e.clientX - rect.left - offsetX) / scale;
-          const clickY = (e.clientY - rect.top - offsetY) / scale;
-
-          const gridX = Math.floor(clickX / TILE_SIZE) * TILE_SIZE;
-          const gridY = Math.floor(clickY / TILE_SIZE) * TILE_SIZE;
-
-          plantTree(gridX, gridY);
-        }
-        // Reset dragging flag on click
-        isDragging = false;
-      });
-
-      // Add this to prevent unwanted text selection during drag
-      container.addEventListener("selectstart", (e) => {
-        e.preventDefault();
-      });
-
-      window.addEventListener("resize", () => {
-        container.innerHTML = "";
-        scale = 1;
-        offsetX = 0;
-        offsetY = 0;
-        updateTransform();
-        createIsland();
-        createClouds();
-      });
-
-      // Initialize
-      createIsland();
-      createClouds();
-    </script>
-  </body>
+  </script>
+  
+  
+</body>
 </html>
