@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Bersihkan Sungai</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background: url('../assets/image/mapLyra.png') no-repeat center center/cover;
+            margin: 0;
+            overflow: hidden;
+        }
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+        .game-container {
+            position: relative;
+            width: 100vw;
+            height: 80vh;
+            background: url('../assets/image/bgLyraGames.png') no-repeat center center/cover;
+            overflow: hidden;
+        }
+        .trash-can {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 120px;
+            background: url('https://i.imgur.com/LyONrJ3.png') no-repeat center center/contain;
+            transition: transform 0.2s;
+        }
+        .trash-can.highlight {
+            transform: scale(1.1);
+        }
+        .trash {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            cursor: grab;
+            filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
+            transition: transform 0.2s;
+            animation: float 2s infinite alternate ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(5px); }
+        }
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            display: none;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .popup.show {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="pickSound" src="https://www.fesliyanstudios.com/play-mp3/4386"></audio>
+    <audio id="dropSound" src="https://www.fesliyanstudios.com/play-mp3/4387"></audio>
+    <div class="game-info">
+        <div>Skor: <span id="score">0</span></div>
+        <div>Sampah tersisa: <span id="remaining">20</span></div>
+    </div>
+    <div class="game-container">
+        <div class="trash-can" id="trashCan"></div>
+    </div>
+    <div class="popup" id="missionPopup">
+        <p>Kamu menyelesaikan misi Lyra!</p>
+        <button onclick="nextMission()">Lanjut ke misi selanjutnya?</button>
+    </div>
+    
+    <script>
+        const gameContainer = document.querySelector(".game-container");
+        const trashCan = document.getElementById("trashCan");
+        const scoreDisplay = document.getElementById("score");
+        const remainingDisplay = document.getElementById("remaining");
+        const timerDisplay = document.getElementById("timer");
+        const missionPopup = document.getElementById("missionPopup");
+        const pickSound = document.getElementById("pickSound");
+        const dropSound = document.getElementById("dropSound");
+        let score = 0;
+        let remainingTrash = 20;
+        let timeLeft = 60;
+        let gameInterval;
+
+        const trashImages = [
+            '../assets/sprite/sampah.png',
+            '../assets/sprite/sampah2.png',
+            '../assets/sprite/sampah3.png',
+            '../assets/sprite/sampah4.png',
+            '../assets/sprite/sampah5.png',
+            '../assets/sprite/sampah6.png',
+            '../assets/sprite/sampah7.png'
+        ];
+
+        function getRandomPosition() {
+            const x = Math.random() * (gameContainer.clientWidth - 100) + 50;
+            const y = Math.random() * (gameContainer.clientHeight - 100) + 50;
+            return { x, y };
+        }
+
+        function createTrash() {
+            for (let i = 0; i < remainingTrash; i++) {
+                let trash = document.createElement("div");
+                trash.classList.add("trash");
+                let trashType = trashImages[Math.floor(Math.random() * trashImages.length)];
+                trash.style.background = `url('${trashType}') no-repeat center center/contain`;
+                let position = getRandomPosition();
+                trash.style.left = `${position.x}px`;
+                trash.style.top = `${position.y}px`;
+                trash.draggable = true;
+                trash.addEventListener("dragstart", dragStart);
+                gameContainer.appendChild(trash);
+            }
+        }
+
+        function dragStart(event) {
+            event.dataTransfer.setData("text", "");
+            event.target.classList.add("dragging");
+            pickSound.play();
+        }
+
+        trashCan.addEventListener("dragover", event => event.preventDefault());
+        trashCan.addEventListener("drop", event => {
+            event.preventDefault();
+            let draggedItem = document.querySelector(".dragging");
+            if (draggedItem) {
+                draggedItem.classList.add("fade-out");
+                setTimeout(() => draggedItem.remove(), 500);
+                dropSound.play();
+                score += 10;
+                remainingTrash -= 1;
+                scoreDisplay.textContent = score;
+                remainingDisplay.textContent = remainingTrash;
+                if (remainingTrash === 0) {
+                    clearInterval(gameInterval);
+                    missionPopup.classList.add("show");
+                }
+            }
+        });
+        createTrash();
+    </script>
+</body>
+</html>
