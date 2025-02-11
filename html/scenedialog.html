@@ -1,107 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scene Dialog | EcoQuest</title>
-    <link rel="stylesheet" href="../css/dialog.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Dialog</title>
     <style>
-
-      .fade-in {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        z-index: 1000;
-        animation: fadeIn 2s forwards;
-      }
-
-      .fade-out {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        z-index: 2000;
-        animation: fadeOut 2s forwards;
-      }
-
-      @keyframes fadeIn {
-        0% {
-          opacity: 1;
+        body {
+            background-image: url(../assets/image/bgDialog.gif);
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e;
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
         }
-        100% {
-          opacity: 0;
+        .character-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 10%;
         }
-      }
+        .character-box {
+            position: relative;
+            text-align: center;
+        }
+        .character {
+            max-height: 80vh;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        .character.active {
+            transform: scale(1.1);
+            filter: brightness(1.3);
+        }
+        .dialog-container {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            border: 2px solid #fff;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .dialog-text {
+            font-size: 18px;
+            text-align: left;
+            min-height: 50px;
+            white-space: normal; /* Mengizinkan teks turun ke bawah */
+            word-wrap: break-word; /* Memastikan kata panjang tidak keluar dari box */
+            overflow: hidden;
+        }
+        .next-button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #ffcc00;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .next-button:hover {
+            background: #ffaa00;
+        }
 
-      @keyframes fadeOut {
-        0% {
-          opacity: 0;
+        /* Panah dialog */
+        .dialog-container::before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 15px 15px 15px;
+            border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+            transition: left 0.3s;
         }
-        100% {
-          opacity: 1;
-        }
-      }
     </style>
-  </head>
-  <body>
-    <div class="fade-in" id="fadeInOverlay"></div>
+</head>
+<body>
     <div class="character-container">
-      <div class="character-box" id="charBoxLeft">
-        <img
-          src="../assets/sprite/kaelDialog.png"
-          class="character active"
-          id="charLeft"
-          alt="Character Left"
-        />
-      </div>
-      <div class="character-box" id="charBoxRight">
-        <img
-          src="../assets/sprite/eldenDialog.png"
-          class="character"
-          id="charRight"
-          alt="Character Right"
-        />
-      </div>
+        <div class="character-box" id="charBoxLeft">
+            <img src="../assets/sprite/kaelDialog.png" class="character active" id="charLeft" alt="Character Left">
+        </div>
+        <div class="character-box" id="charBoxRight">
+            <img src="../assets/sprite/eldenDialog.png" class="character" id="charRight" alt="Character Right">
+        </div>
     </div>
 
     <div class="dialog-container" id="dialogBox">
-      <div class="dialog-text" id="dialogText"></div>
-      <div class="arrow"></div>
-      <button class="next-button" onclick="nextDialog()">Next</button>
+        <div class="dialog-text" id="dialogText"></div>
+        <button class="next-button" onclick="nextDialog()">Next</button>
     </div>
 
-    <div class="fade-out" id="fadeOutOverlay" style="display: none"></div>
-
-    <audio id="clickSound" src="../assets/sounds/ButtonClick.mp3"></audio>
-
     <script>
-      window.addEventListener("load", function () {
-        const fadeInOverlay = document.getElementById("fadeInOverlay");
-        fadeInOverlay.addEventListener("animationend", function () {
-          fadeInOverlay.style.display = "none";
-        });
-      });
+        const dialogData = [
+            { name: "Kael", text: "Akhirnya... Monster Enclipse berhasil kita kalahkan!\nSekarang saatnya kita membangun kembali desa.", leftActive: true },
+            { name: "Elden", text: "Kael, perjuangan kalian luar biasa.\nAtas nama seluruh desa, aku mengucapkan terima kasih.", leftActive: false },
+            { name: "Kael", text: "Tidak perlu berterima kasih, Elden.\nIni adalah tanggung jawab kami untuk melindungi desa ini.", leftActive: true },
+            { name: "Elden", text: "Namun, pertarungan tadi menyebabkan banyak kerusakan.\nInfrastruktur desa hancur, dan tanah menjadi gersang.", leftActive: false },
+            { name: "Kael", text: "Aku menyadarinya...\nJalanan rusak, jembatan hancur, dan ladang mengering.", leftActive: true },
+            { name: "Elden", text: "Kael, aku ingin meminta satu hal lagi.\nTolong bantu kami memperbaiki infrastruktur dan menyuburkan tanah kembali agar desa ini bisa makmur lagi.", leftActive: false },
+            { name: "Kael", text: "Tentu saja, Elden!\nAku dan yang lain akan membangun kembali jalan dan jembatan,\nserta menanam kembali tumbuhan agar desa ini kembali hijau!", leftActive: true },
+            { name: "Elden", text: "Terima kasih, Kael.\nDengan bantuanmu, desa ini akan pulih dan berkembang lebih baik dari sebelumnya.", leftActive: false }
+        ];
 
-      function nextDialog() {
-        const clickSound = document.getElementById("clickSound");
-        clickSound.play();
-        // Existing code for next dialog functionality
-      }
+        let index = 0;
+        let isTyping = false;
+        const dialogText = document.getElementById("dialogText");
+        const dialogBox = document.getElementById("dialogBox");
+        const charLeft = document.getElementById("charLeft");
+        const charRight = document.getElementById("charRight");
 
-      function endDialog() {
-        const fadeOutOverlay = document.getElementById("fadeOutOverlay");
-        fadeOutOverlay.style.display = "block";
-        fadeOutOverlay.addEventListener("animationend", function () {
-          fadeOutOverlay.style.display = "none";
-        });
-      }
+        function showDialog() {
+            dialogBox.style.opacity = "1";
+            dialogText.innerHTML = "";
+            updateDialogPointer();
+            typeWriterEffect(dialogData[index].text);
+        }
+
+        function nextDialog() {
+            if (isTyping) return;
+            if (index < dialogData.length - 1) {
+                index++;
+                updateDialogPointer();
+                typeWriterEffect(dialogData[index].text);
+
+                charLeft.classList.toggle("active", dialogData[index].leftActive);
+                charRight.classList.toggle("active", !dialogData[index].leftActive);
+            } else {
+                dialogBox.style.opacity = "0";
+                setTimeout(() => {
+                    window.location.href = "chooseChar.html"; // Redirect setelah dialog selesai
+                }, 1000);
+            }
+        }
+
+        function updateDialogPointer() {
+            const arrow = document.styleSheets[0].cssRules[document.styleSheets[0].cssRules.length - 1];
+            if (dialogData[index].leftActive) {
+                arrow.style.setProperty("left", "10%");
+            } else {
+                arrow.style.setProperty("left", "90%");
+            }
+        }
+
+        function typeWriterEffect(text) {
+            let i = 0;
+            isTyping = true;
+            dialogText.innerHTML = "";
+            function type() {
+                if (i < text.length) {
+                    if (text[i] === "\n") {
+                        dialogText.innerHTML += "<br>"; // Ganti "\n" dengan baris baru
+                    } else {
+                        dialogText.innerHTML += text[i];
+                    }
+                    i++;
+                    setTimeout(type, 30);
+                } else {
+                    isTyping = false;
+                }
+            }
+            type();
+        }
+
+        showDialog();
     </script>
     <script src="../js/dialog.js"></script>
-  </body>
+</body>
 </html>
