@@ -5,8 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Character | EcoQuest</title>
     <link rel="stylesheet" href="../css/chooseChar.css">
+    <style>
+                .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #2c5364, #203a43, #0f2027);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            color: white;
+            position: relative;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-overlay.active .popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .popup-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 1rem;
+        }
+
+        .popup-header h2 {
+            margin: 0;
+            color: #4CAF50;
+            font-size: 1.8rem;
+        }
+
+        .game-mechanics {
+            margin-bottom: 1.5rem;
+        }
+
+        .mechanic-item {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .close-button:hover {
+            transform: scale(1.1);
+        }
+
+        .start-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .start-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+     <div class="popup-overlay active">
+        <div class="popup-content">
+            <button class="close-button" onclick="closePopup()">×</button>
+            <div class="popup-header">
+                <h2>Welcome to EcoQuest!</h2>
+            </div>
+            <div class="game-mechanics">
+                <div class="mechanic-item">
+                    <strong>Choose Your Hero:</strong> Each character has unique abilities and strengths.
+                </div>
+                <div class="mechanic-item">
+                    <strong>Mission:</strong> Help protect and restore the environment through exciting challenges.
+                </div>
+                <div class="mechanic-item">
+                    <strong>Controls:</strong> Use arrow keys to move, spacebar to interact, and collect eco-points!
+                </div>
+                <div class="mechanic-item">
+                    <strong>Power-ups:</strong> Look for special items that boost your character's abilities.
+                </div>
+            </div>
+            <button class="start-button" onclick="closePopup()">Let's Begin!</button>
+        </div>
+    </div>
      <div id="black-screen"></div>
     <div class="image-container">
         <img src="../assets/sprite/titleChooseChar.png" alt="Choose Your Character">
@@ -19,6 +141,7 @@
 
     <!-- Audio element -->
     <audio id="background-music" src="../assets/sounds/RoyaltyFantasy.mp3" loop></audio>
+    <audio id="clickChar" src="../assets/sounds/ButtonClick.mp3"></audio>
 
     <!-- Character images -->
     <div class="img-character">
@@ -29,5 +152,22 @@
     </div>
 
     <script src="../js/chooseChar.js"></script>
+    <script>
+        // Add this to your existing JavaScript file or create a new script
+        function closePopup() {
+            const popup = document.querySelector('.popup-overlay');
+            popup.classList.remove('active');
+            const bgMusic = document.getElementById('background-music');
+            bgMusic.volume = 0.12;
+            bgMusic.play();
+
+        }
+
+        // Show popup when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.querySelector('.popup-overlay');
+            popup.classList.add('active');
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,91 @@
+body {
+  background-image: url(../assets/image/bgChooseChar.gif);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.425);
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  display: inline-block;
+  width: 100%;
+  max-width: 735px; /* Maksimal 800px */
+  height: auto; /* Menjaga proporsi gambar */
+  margin-top: -16px;
+}
+
+.img-character {
+  display: flex; /* Menggunakan Flexbox untuk menata gambar secara horizontal */
+  justify-content: space-between; /* Menyebar gambar dengan jarak rata */
+  gap: 1px; /* Jarak antar gambar jika diperlukan */
+}
+
+.img-character img {
+  width: 400px; /* Menentukan lebar gambar */
+  height: 400px; /* Menentukan tinggi gambar */
+  object-fit: contain; /* Menjaga gambar tetap proporsional dan tidak terpotong */
+  margin-right: 10px; /* Menambahkan jarak kanan pada gambar */
+}
+
+#black-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 9999; /* Menempatkan layar hitam di atas elemen lainnya */
+    opacity: 1;
+    transition: opacity 1s ease-out; /* Animasi untuk fade-out */
+
+    
+}
+
+/* Styling untuk tombol Play musik */
+/* Styling untuk tombol Play musik */
+.music-controls {
+    position: fixed; /* Posisi tetap */
+    top: 20px; /* Jarak dari atas */
+    left: 20px; /* Jarak dari kiri */
+    z-index: 1000; /* Agar tombol selalu terlihat di atas */
+}
+
+/* Tombol Play/Pause */
+.music-controls button {
+    padding: 6px 16px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(145deg, #6e7c7b, #4b5c5a); /* Gradasi warna */
+    color: white;
+    border: 2px solid #333;
+    border-radius: 50px; /* Membuat tombol berbentuk oval */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2), -2px -2px 10px rgba(0, 0, 0, 0.2); /* Bayangan halus */
+    transition: all 0.3s ease; /* Animasi transisi */
+}
+
+/* Efek saat hover */
+.music-controls button:hover {
+    background: linear-gradient(145deg, #8e9e9d, #6c7b7a); /* Gradasi warna lebih terang saat hover */
+    transform: scale(1.1); /* Efek pembesaran saat hover */
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3), -2px -2px 15px rgba(0, 0, 0, 0.3); /* Bayangan lebih kuat saat hover */
+}
+
+/* Efek saat tombol aktif ditekan */
+.music-controls button:active {
+    transform: scale(0.98); /* Efek mengecil saat tombol ditekan */
+    box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan inset saat ditekan */
+}
+
+

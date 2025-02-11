@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Dialog</title>
+    <style>
+      body {
+        background-image: url(../assets/image/../image/bgKaelGames.webp);
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #1e1e1e;
+        font-family: Arial, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      .character-container {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 0 10%;
+      }
+      .character-box {
+        position: relative;
+        text-align: center;
+      }
+      .character {
+        max-height: 80vh;
+        transition: transform 0.3s, filter 0.3s;
+      }
+      .character.active {
+        transform: scale(1.1);
+        filter: brightness(1.3);
+      }
+      .dialog-container {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        border: 2px solid #fff;
+        padding: 20px;
+        color: white;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+      .dialog-text {
+        font-size: 18px;
+        text-align: left;
+        min-height: 50px;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow: hidden;
+      }
+      .next-button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: #ffcc00;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .next-button:hover {
+        background: #ffaa00;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 1;
+        z-index: 9999;
+        transition: opacity 1s ease-in; /* Animasi fade-out */
+      }
+
+      .overlay.hidden {
+        opacity: 0;
+        visibility: hidden; /* Menghindari overlay mengganggu layout setelah fade-out */
+        transition: opacity 1s ease-in, visibility 0s 1s;
+      }
+
+      .dialog-container::before {
+        content: "";
+        position: absolute;
+        top: -15px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 15px 15px 15px;
+        border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+        transition: left 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <div class="character-container">
+      <div class="character-box" id="charBoxLeft">
+        <img
+          src="../assets/sprite/kaelDialog.png"
+          class="character active"
+          id="charLeft"
+          alt="Character Left"
+        />
+      </div>
+      <div class="character-box" id="charBoxRight">
+        <img
+          src="../assets/sprite/eldenDialog.png"
+          class="character"
+          id="charRight"
+          alt="Character Right"
+        />
+      </div>
+    </div>
+    <audio
+      id="clickSound"
+      src="../assets/sounds/DialogSound.mp3"
+      preload="auto"
+    ></audio>
+
+    <div class="dialog-container" id="dialogBox">
+      <div class="dialog-text" id="dialogText"></div>
+      <button class="next-button" onclick="nextDialog()">Next</button>
+    </div>
+
+    <script>
+      window.onload = () => {
+        const overlay = document.querySelector(".overlay");
+        setTimeout(() => {
+          overlay.classList.add("hidden");
+        }, 500); // Animasi berlangsung selama 0.5 detik sebelum menghilang
+
+        // Menghapus overlay setelah animasi selesai
+        overlay.addEventListener("transitionend", () => {
+          overlay.remove(); // Menghapus overlay dari DOM
+        });
+      };
+
+      const dialogData = [
+        {
+          name: "Kael",
+          text: "Aku telah menanam pohon ini dengan penuh harapan, Elden.\n Semoga ia tumbuh kuat dan membawa kebaikan bagi SkyForest.",
+          leftActive: true,
+        },
+        {
+          name: "Elden",
+          text:"Kael, pohon ini bukan hanya sekadar tanaman. Ia adalah simbol dari pengabdianmu kepada SkyForest dan desa kita.\n Setiap pohon yang kau tanam, akan menjadi bagian dari warisan yang akan terus tumbuh, berakar, dan memberikan kehidupan bagi generasi mendatang.",
+          leftActive: false,
+        },
+        {
+          name: "Kael",
+          text: "Haha Tidak masalah, Elden.\nLagi pula ini belum semuanya selesai\n tanaman membutuhkan air dan matahari agar terus bertumbuh",
+          leftActive: true,
+        },
+        {
+          name: "Elden",
+          text: "baiklah.\nterima kasih atas semuanya",
+          leftActive: false,
+        },
+        {
+          name: "Kael",
+          text: "Sama sama elden, Sekarang giliran lyra dan selene untuk menghasilkan energi air dan matahari",
+          leftActive: true,
+        },
+      ];
+
+      let index = 0;
+      let isTyping = false;
+      const dialogText = document.getElementById("dialogText");
+      const dialogBox = document.getElementById("dialogBox");
+      const charLeft = document.getElementById("charLeft");
+      const charRight = document.getElementById("charRight");
+
+      function showDialog() {
+        dialogBox.style.opacity = "1";
+        dialogText.innerHTML = "";
+        updateDialogPointer();
+        typeWriterEffect(dialogData[index].text);
+      }
+
+      function nextDialog() {
+        if (isTyping) return;
+
+        // Mainkan suara klik saat tombol "Next" diklik
+        const clickSound = document.getElementById("clickSound");
+        clickSound.play(); // Memainkan suara klik
+
+        if (index < dialogData.length - 1) {
+          index++;
+          updateDialogPointer();
+          typeWriterEffect(dialogData[index].text);
+
+          charLeft.classList.toggle("active", dialogData[index].leftActive);
+          charRight.classList.toggle("active", !dialogData[index].leftActive);
+        } else {
+          // Trigger fade-out animation
+          dialogBox.style.opacity = "0";
+          const fadeOutOverlay = document.createElement("div");
+          fadeOutOverlay.classList.add("overlay");
+          document.body.appendChild(fadeOutOverlay);
+
+          // Menunggu sebelum menambahkan class hidden untuk memulai fade-out
+          setTimeout(() => {
+            fadeOutOverlay.classList.add("hidden"); // Menambahkan class hidden setelah 0.5 detik
+          }, 500);
+
+          // After fade-out, redirect
+          setTimeout(() => {
+            window.location.href = "chooseChar2.html"; // Redirect setelah dialog selesai
+          }, 1000);
+        }
+      }
+
+      function updateDialogPointer() {
+        const arrow =
+          document.styleSheets[0].cssRules[
+            document.styleSheets[0].cssRules.length - 1
+          ];
+        if (dialogData[index].leftActive) {
+          arrow.style.setProperty("left", "10%");
+        } else {
+          arrow.style.setProperty("left", "90%");
+        }
+      }
+
+      function typeWriterEffect(text) {
+        let i = 0;
+        isTyping = true;
+        dialogText.innerHTML = "";
+        function type() {
+          if (i < text.length) {
+            if (text[i] === "\n") {
+              dialogText.innerHTML += "<br>"; // Ganti "\n" dengan baris baru
+            } else {
+              dialogText.innerHTML += text[i];
+            }
+            i++;
+            setTimeout(type, 30);
+          } else {
+            isTyping = false;
+          }
+        }
+        type();
+      }
+
+      showDialog();
+    </script>
+  </body>
+</html>
