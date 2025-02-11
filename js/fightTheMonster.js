@@ -8,243 +8,259 @@ function shuffle(array) {
 }
 
 const questions = [
-    {
-        question: "Apa yang dibutuhkan tanaman untuk tumbuh?",
-        answers: [
-            "Air dan cahaya matahari",
-            "Hanya air",
-            "Hanya tanah",
-            "Hanya udara",
-        ],
-        correct: 0,
-    },
-    {
-        question: "Tanaman berfotosintesis untuk menghasilkan:",
-        answers: [
-            "Oksigen dan air",
-            "Oksigen dan makanan",
-            "Karbon dioksida dan tanah",
-            "Tanah dan air",
-        ],
-        correct: 1,
-    },
-
-    {
-        question: "Tumbuhan yang hidup di air disebut:",
-        answers: [
-          "Tanaman darat",
-          "Tanaman hidrofit",
-          "Tanaman xerofit",
-          "Tanaman epifit",
-        ],
-        correct: 1,
-      },
-      {
-        question: "Apa yang dimaksud dengan ekosistem?",
-        answers: [
-          "Hanya tanaman yang hidup di dalam tanah",
-          "Tempat tinggal bagi hewan dan tumbuhan",
-          "Interaksi antara makhluk hidup dan lingkungan",
-          "Semua tumbuhan di dunia",
-        ],
-        correct: 2,
-      },
-      {
-        question: "Bagian tanaman yang menyerap air adalah:",
-        answers: ["Bunga", "Daun", "Akar", "Batang"],
-        correct: 2,
-      },
-      {
-        question: "Hewan yang memakan tanaman disebut:",
-        answers: ["Karnivora", "Herbivora", "Omnivora", "Dekomposer"],
-        correct: 1,
-      },
-      {
-        question:
-          "Proses yang terjadi pada daun tanaman untuk menghasilkan makanan adalah:",
-        answers: ["Evaporasi", "Fotosintesis", "Transpirasi", "Respirasi"],
-        correct: 1,
-      },
-      {
-        question: "Contoh tumbuhan yang hidup di tempat kering dan panas adalah:",
-        answers: ["Kaktus", "Teratai", "Padi", "Anggrek"],
-        correct: 0,
-      },
-      {
-        question: "Tanaman yang hidup di hutan tropis biasanya memiliki:",
-        answers: [
-          "Daun yang tebal dan lebar",
-          "Daun yang kecil",
-          "Batang yang keras",
-          "Akar yang panjang",
-        ],
-        correct: 0,
-      },
-      {
-        question: "Hewan yang memakan hewan lain disebut:",
-        answers: ["Herbivora", "Karnivora", "Omnivora", "Dekomposer"],
-        correct: 1,
-      },
-      {
-        question: "Bakteri dan jamur membantu dalam ekosistem dengan cara:",
-        answers: [
-          "Membantu tanaman tumbuh",
-          "Menguraikan bahan mati menjadi unsur hara",
-          "Membuat makanan untuk hewan",
-          "Menyebarkan benih",
-        ],
-        correct: 1,
-      },
-      {
-        question:
-          "Bagian tanaman yang biasanya berwarna hijau dan berfungsi untuk fotosintesis adalah:",
-        answers: ["Bunga", "Akar", "Batang", "Daun"],
-        correct: 3,
-      },
-      {
-        question: "Hewan yang makan tanaman dan juga daging disebut:",
-        answers: ["Karnivora", "Omnivora", "Herbivora", "Dekomposer"],
-        correct: 1,
-      },
-      {
-        question: "Proses penguapan air dari tanaman disebut:",
-        answers: ["Evaporasi", "Fotosintesis", "Transpirasi", "Kondensasi"],
-        correct: 2,
-      },
-      {
-        question: "Tanaman yang hidup di tempat basah seperti rawa disebut:",
-        answers: [
-          "Tumbuhan terestrial",
-          "Tumbuhan akuatik",
-          "Tumbuhan xerofit",
-          "Tumbuhan epifit",
-        ],
-        correct: 1,
-      },
-      {
-        question: "Tanaman yang memerlukan banyak air disebut:",
-        answers: [
-          "Tanaman xerofit",
-          "Tanaman mesofit",
-          "Tanaman hidrofit",
-          "Tanaman epifit",
-        ],
-        correct: 2,
-      },
-      {
-        question: "Hewan yang hidup dengan memakan tumbuhan disebut:",
-        answers: ["Karnivora", "Herbivora", "Omnivora", "Dekomposer"],
-        correct: 1,
-      },
-      {
-        question: "Siklus air dalam alam dimulai dengan:",
-        answers: [
-          "Fotosintesis",
-          "Penguapan",
-          "Penyerapan oleh tanaman",
-          "Pembentukan awan",
-        ],
-        correct: 1,
-      },
-      {
-        question:
-          "Tanaman yang hidup dengan mengambil makanan dari tanaman lain disebut:",
-        answers: [
-          "Tanaman autotrof",
-          "Tanaman karnivora",
-          "Tanaman parasit",
-          "Tanaman epifit",
-        ],
-        correct: 2,
-      },
-      {
-        question: "Hewan yang menguraikan bahan organik yang mati disebut:",
-        answers: ["Dekomposer", "Karnivora", "Herbivora", "Omnivora"],
-        correct: 0,
-      },
-      {
-        question: "Proses alami yang menghasilkan hujan adalah:",
-        answers: [
-          "Fotosintesis",
-          "Penguapan dan kondensasi",
-          "Transpirasi",
-          "Pernafasan",
-        ],
-        correct: 1,
-      },
-      {
-        question: "Tumbuhan yang hidup di atas pohon lain disebut:",
-        answers: [
-          "Tanaman parasit",
-          "Tanaman epifit",
-          "Tanaman terestrial",
-          "Tanaman hidrofit",
-        ],
-        correct: 1,
-      },
-      {
-        question: "Apakah yang dimaksud dengan rantai makanan?",
-        answers: [
-          "Urutan makanan yang dimakan oleh makhluk hidup",
-          "Proses fotosintesis pada tumbuhan",
-          "Proses tumbuhnya tanaman",
-          "Semua makhluk hidup yang ada di hutan",
-        ],
-        correct: 0,
-      },
-      {
-        question: "Hewan yang menjadi mangsa disebut:",
-        answers: ["Predator", "Konsumen", "Mangsa", "Herbivora"],
-        correct: 2,
-      },
-      {
-        question: "Apa yang dimaksud dengan konsumen dalam ekosistem?",
-        answers: [
-          "Organisme yang memproduksi makanan",
-          "Organisme yang memakan produsen atau organisme lain",
-          "Organisme yang menguraikan bahan organik",
-          "Organisme yang hidup di dalam tanah",
-        ],
-        correct: 1,
-      },
-      {
-        question: "Tumbuhan yang dapat hidup dengan sedikit air disebut:",
-        answers: [
-          "Tanaman mesofit",
-          "Tanaman xerofit",
-          "Tanaman hidrofit",
-          "Tanaman epifit",
-        ],
-        correct: 1,
-      },
-      {
-        question: "Bagian tanaman yang menghubungkan akar dengan daun adalah:",
-        answers: ["Bunga", "Batang", "Daun", "Akar"],
-        correct: 1,
-      },
-      {
-        question: "Sumber energi utama bagi tanaman adalah:",
-        answers: ["Tanah", "Air", "Cahaya matahari", "Udara"],
-        correct: 2,
-      },
-      {
-        question: "Pohon yang biasanya ditemukan di daerah tropis adalah:",
-        answers: ["Pohon pinus", "Pohon kelapa", "Pohon maple", "Pohon ek"],
-        correct: 1,
-      },
-      {
-        question: "Tanaman yang dapat hidup dengan sedikit air disebut:",
-        answers: [
-          "Tanaman mesofit",
-          "Tanaman xerofit",
-          "Tanaman hidrofit",
-          "Tanaman epifit",
-        ],
-        correct: 1,
-      },
-  
-    // ... (other questions)
+  {
+    question: "Apa yang dibutuhkan oleh tumbuhan untuk tumbuh dengan baik?",
+    answers: [
+      "Air dan udara",
+      "Cahaya matahari dan tanah",
+      "Air, udara, cahaya matahari, dan tanah",
+      "Hanya air dan tanah",
+    ],
+    correct: 2,
+  },
+  {
+    question: "Apa yang dimaksud dengan fotosintesis?",
+    answers: [
+      "Proses tumbuhan menghasilkan oksigen",
+      "Proses tumbuhan menghasilkan makanan dengan bantuan cahaya matahari",
+      "Proses tumbuhan menyerap air",
+      "Proses tumbuhan mengeluarkan karbon dioksida",
+    ],
+    correct: 1,
+  },
+  {
+    question: "Bagian tumbuhan yang berfungsi menyerap air adalah…",
+    answers: ["Akar", "Batang", "Daun", "Bunga"],
+    correct: 0,
+  },
+  {
+    question: "Bagian tumbuhan yang menyimpan makanan adalah…",
+    answers: ["Akar", "Batang", "Daun", "Bunga"],
+    correct: 1,
+  },
+  {
+    question: "Apa yang dihasilkan oleh tumbuhan saat fotosintesis?",
+    answers: [
+      "Karbon dioksida dan air",
+      "Oksigen dan glukosa",
+      "Oksigen dan nitrogen",
+      "Karbohidrat dan air",
+    ],
+    correct: 1,
+  },
+  {
+    question: "Daun tumbuhan berfungsi untuk…",
+    answers: [
+      "Menyerap air dari tanah",
+      "Tempat tumbuh bunga",
+      "Tempat terjadinya fotosintesis",
+      "Menyimpan makanan",
+    ],
+    correct: 2,
+  },
+  {
+    question: "Bunga tumbuhan berfungsi untuk…",
+    answers: [
+      "Menyimpan makanan",
+      "Menghasilkan biji",
+      "Menyerap air",
+      "Menyebarkan oksigen",
+    ],
+    correct: 1,
+  },
+  {
+    question: "Apa yang terjadi pada tumbuhan jika kekurangan air?",
+    answers: [
+      "Tumbuhan akan tumbuh lebih cepat",
+      "Tumbuhan akan layu dan mati",
+      "Tumbuhan akan menghasilkan lebih banyak bunga",
+      "Tumbuhan akan berbuah lebih banyak",
+    ],
+    correct: 1,
+  },
+  {
+    question:
+      "Bagian tumbuhan yang berfungsi untuk memindahkan air dan mineral dari akar ke daun adalah…",
+    answers: ["Xilem", "Floem", "Akar", "Batang"],
+    correct: 0,
+  },
+  {
+    question: "Pohon yang daunnya gugur pada musim tertentu disebut…",
+    answers: [
+      "Tumbuhan merambat",
+      "Tumbuhan tahunan",
+      "Tumbuhan gugur",
+      "Tumbuhan hijau",
+    ],
+    correct: 2,
+  },
+  {
+    question:
+      "Bagian dari bunga yang berfungsi untuk menghasilkan serbuk sari adalah…",
+    answers: ["Putik", "Benang sari", "Kelopak bunga", "Daun bunga"],
+    correct: 1,
+  },
+  {
+    question:
+      "Apa yang dimaksud dengan proses tumbuhan mengeluarkan air melalui daun?",
+    answers: ["Evaporasi", "Perkembangbiakan", "Transpirasi", "Fotosintesis"],
+    correct: 2,
+  },
+  {
+    question: "Tumbuhan yang hidup di air disebut…",
+    answers: [
+      "Tumbuhan darat",
+      "Tumbuhan air",
+      "Tumbuhan merambat",
+      "Tumbuhan hutan",
+    ],
+    correct: 1,
+  },
+  {
+    question:
+      "Apa yang dimaksud dengan perkembangbiakan tumbuhan secara vegetatif?",
+    answers: [
+      "Perkembangbiakan dengan biji",
+      "Perkembangbiakan dengan spora",
+      "Perkembangbiakan dengan bagian tubuh tumbuhan",
+      "Perkembangbiakan dengan serbuk sari",
+    ],
+    correct: 2,
+  },
+  {
+    question: "Apa yang terjadi setelah biji tumbuhan berkecambah?",
+    answers: [
+      "Biji akan berubah menjadi bunga",
+      "Akar dan batang tumbuh dari biji",
+      "Biji akan mengering",
+      "Daun tumbuh dari biji",
+    ],
+    correct: 1,
+  },
+  {
+    question: "Tumbuhan yang hanya hidup di musim hujan disebut…",
+    answers: [
+      "Tumbuhan tahunan",
+      "Tumbuhan musiman",
+      "Tumbuhan hijau",
+      "Tumbuhan berbiji",
+    ],
+    correct: 1,
+  },
+  {
+    question: "Manakah dari tumbuhan berikut yang bisa tumbuh di tanah tandus?",
+    answers: ["Kaktus", "Mangga", "Pohon kelapa", "Padi"],
+    correct: 0,
+  },
+  {
+    question: "Apa yang dimaksud dengan akar tunjang?",
+    answers: [
+      "Akar yang tumbuh di bawah tanah",
+      "Akar yang tumbuh dari batang",
+      "Akar yang bercabang-cabang",
+      "Akar yang tumbuh di atas tanah",
+    ],
+    correct: 1,
+  },
+  {
+    question:
+      "Tumbuhan yang hidup di daerah yang sangat kering dan panas adalah…",
+    answers: [
+      "Tumbuhan tropis",
+      "Tumbuhan padang rumput",
+      "Tumbuhan gurun",
+      "Tumbuhan rawa",
+    ],
+    correct: 2,
+  },
+  {
+    question: "Bagaimana cara tumbuhan merambat tumbuh?",
+    answers: [
+      "Dengan akarnya",
+      "Dengan batang yang lentur",
+      "Dengan daunnya",
+      "Dengan bijinya",
+    ],
+    correct: 1,
+  },
+  {
+    question: "Tumbuhan yang daunnya berbentuk jarum atau lancip disebut…",
+    answers: [
+      "Tumbuhan berdaun lebar",
+      "Tumbuhan berdaun kecil",
+      "Tumbuhan berdaun jarum",
+      "Tumbuhan berdaun besar",
+    ],
+    correct: 2,
+  },
+  {
+    question: "Apa yang disebut dengan tanaman legum?",
+    answers: [
+      "Tanaman yang menghasilkan buah berbiji keras",
+      "Tanaman yang memiliki daun besar",
+      "Tanaman yang menghasilkan polong dan biji",
+      "Tanaman yang hidup di air",
+    ],
+    correct: 2,
+  },
+  {
+    question: "Manakah yang termasuk tumbuhan perkebunan?",
+    answers: ["Pohon cemara", "Kaktus", "Pohon kelapa", "Rumput liar"],
+    correct: 2,
+  },
+  {
+    question:
+      "Tumbuhan yang memiliki bunga berwarna cerah dan harum biasanya adalah…",
+    answers: [
+      "Tumbuhan yang tidak menghasilkan bunga",
+      "Tumbuhan berbunga satu warna",
+      "Tumbuhan yang diserbuki oleh angin atau air",
+      "Tumbuhan yang diserbuki oleh serangga atau burung",
+    ],
+    correct: 3,
+  },
+  {
+    question: "Proses dimana tumbuhan mengeluarkan oksigen ke udara adalah…",
+    answers: ["Fotosintesis", "Evaporasi", "Transpirasi", "Respirasi"],
+    correct: 0,
+  },
+  {
+    question: "Tanaman yang memiliki buah berduri adalah…",
+    answers: ["Durian", "Apel", "Mangga", "Pisang"],
+    correct: 0,
+  },
+  {
+    question: "Manakah dari tumbuhan berikut yang bisa hidup di tempat dingin?",
+    answers: ["Kaktus", "Pinus", "Kelapa", "Padi"],
+    correct: 1,
+  },
+  {
+    question: "Apa yang dimaksud dengan spora pada tumbuhan?",
+    answers: [
+      "Benih kecil untuk perkembangbiakan",
+      "Biji yang tumbuh dari bunga",
+      "Bagian yang menghasilkan makanan",
+      "Akar yang tumbuh dari batang",
+    ],
+    correct: 0,
+  },
+  {
+    question: "Tumbuhan yang menghasilkan biji terbuka disebut…",
+    answers: ["Gymnospermae", "Angiospermae", "Spora", "Lumut"],
+    correct: 0,
+  },
+  {
+    question: "Bagaimana cara tumbuhan beradaptasi dengan kekurangan air?",
+    answers: [
+      "Daun mengering dan menggugur",
+      "Batang menjadi panjang",
+      "Akar menyerap lebih banyak air",
+      "Tumbuhan mengeluarkan oksigen lebih banyak",
+    ],
+    correct: 0,
+  },
 ];
+
 
 // Shuffle the questions array
 const shuffledQuestions = shuffle(questions);

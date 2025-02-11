@@ -1,184 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Dialog</title>
     <style>
-        body {
-            background-image: url(../assets/image/bgDialog.gif);
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #1e1e1e;
-            font-family: Arial, sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-        .character-container {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            padding: 0 10%;
-        }
-        .character-box {
-            position: relative;
-            text-align: center;
-        }
-        .character {
-            max-height: 80vh;
-            transition: transform 0.3s, filter 0.3s;
-        }
-        .character.active {
-            transform: scale(1.1);
-            filter: brightness(1.3);
-        }
-        .dialog-container {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            border: 2px solid #fff;
-            padding: 20px;
-            color: white;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        .dialog-text {
-            font-size: 18px;
-            text-align: left;
-            min-height: 50px;
-            white-space: normal; /* Mengizinkan teks turun ke bawah */
-            word-wrap: break-word; /* Memastikan kata panjang tidak keluar dari box */
-            overflow: hidden;
-        }
-        .next-button {
-            margin-top: 10px;
-            padding: 10px 15px;
-            background: #ffcc00;
-            color: black;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .next-button:hover {
-            background: #ffaa00;
-        }
+      body {
+        background-image: url(../assets/image/bgDialog.gif);
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #1e1e1e;
+        font-family: Arial, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      .character-container {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 0 10%;
+      }
+      .character-box {
+        position: relative;
+        text-align: center;
+      }
+      .character {
+        max-height: 80vh;
+        transition: transform 0.3s, filter 0.3s;
+      }
+      .character.active {
+        transform: scale(1.1);
+        filter: brightness(1.3);
+      }
+      .dialog-container {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        border: 2px solid #fff;
+        padding: 20px;
+        color: white;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+      .dialog-text {
+        font-size: 18px;
+        text-align: left;
+        min-height: 50px;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow: hidden;
+      }
+      .next-button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: #ffcc00;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .next-button:hover {
+        background: #ffaa00;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 1;
+        z-index: 9999;
+        transition: opacity 1s ease-out; /* Animasi fade-out */
+      }
 
-        /* Panah dialog */
-        .dialog-container::before {
-            content: "";
-            position: absolute;
-            top: -15px;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 15px 15px 15px;
-            border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
-            transition: left 0.3s;
-        }
+      .overlay.hidden {
+        opacity: 0;
+        visibility: hidden; /* Menghindari overlay mengganggu layout setelah fade-out */
+        transition: opacity 1s ease-out, visibility 0s 1s;
+      }
+
+      .dialog-container::before {
+        content: "";
+        position: absolute;
+        top: -15px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 15px 15px 15px;
+        border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+        transition: left 0.3s;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="overlay"></div>
     <div class="character-container">
-        <div class="character-box" id="charBoxLeft">
-            <img src="../assets/sprite/kaelDialog.png" class="character active" id="charLeft" alt="Character Left">
-        </div>
-        <div class="character-box" id="charBoxRight">
-            <img src="../assets/sprite/eldenDialog.png" class="character" id="charRight" alt="Character Right">
-        </div>
+      <div class="character-box" id="charBoxLeft">
+        <img
+          src="../assets/sprite/kaelDialog.png"
+          class="character active"
+          id="charLeft"
+          alt="Character Left"
+        />
+      </div>
+      <div class="character-box" id="charBoxRight">
+        <img
+          src="../assets/sprite/eldenDialog.png"
+          class="character"
+          id="charRight"
+          alt="Character Right"
+        />
+      </div>
     </div>
+    <audio
+      id="clickSound"
+      src="../assets/sounds/DialogSound.mp3"
+      preload="auto"
+    ></audio>
 
     <div class="dialog-container" id="dialogBox">
-        <div class="dialog-text" id="dialogText"></div>
-        <button class="next-button" onclick="nextDialog()">Next</button>
+      <div class="dialog-text" id="dialogText"></div>
+      <button class="next-button" onclick="nextDialog()">Next</button>
     </div>
 
     <script>
-        const dialogData = [
-            { name: "Kael", text: "Akhirnya... Monster Enclipse berhasil kita kalahkan!\nSekarang saatnya kita membangun kembali desa.", leftActive: true },
-            { name: "Elden", text: "Kael, perjuangan kalian luar biasa.\nAtas nama seluruh desa, aku mengucapkan terima kasih.", leftActive: false },
-            { name: "Kael", text: "Tidak perlu berterima kasih, Elden.\nIni adalah tanggung jawab kami untuk melindungi desa ini.", leftActive: true },
-            { name: "Elden", text: "Namun, pertarungan tadi menyebabkan banyak kerusakan.\nInfrastruktur desa hancur, dan tanah menjadi gersang.", leftActive: false },
-            { name: "Kael", text: "Aku menyadarinya...\nJalanan rusak, jembatan hancur, dan ladang mengering.", leftActive: true },
-            { name: "Elden", text: "Kael, aku ingin meminta satu hal lagi.\nTolong bantu kami memperbaiki infrastruktur dan menyuburkan tanah kembali agar desa ini bisa makmur lagi.", leftActive: false },
-            { name: "Kael", text: "Tentu saja, Elden!\nAku dan yang lain akan membangun kembali jalan dan jembatan,\nserta menanam kembali tumbuhan agar desa ini kembali hijau!", leftActive: true },
-            { name: "Elden", text: "Terima kasih, Kael.\nDengan bantuanmu, desa ini akan pulih dan berkembang lebih baik dari sebelumnya.", leftActive: false }
-        ];
+      window.onload = () => {
+        const overlay = document.querySelector(".overlay");
+        setTimeout(() => {
+          overlay.classList.add("hidden");
+        }, 500); // Animasi berlangsung selama 0.5 detik sebelum menghilang
 
-        let index = 0;
-        let isTyping = false;
-        const dialogText = document.getElementById("dialogText");
-        const dialogBox = document.getElementById("dialogBox");
-        const charLeft = document.getElementById("charLeft");
-        const charRight = document.getElementById("charRight");
+        // Menghapus overlay setelah animasi selesai
+        overlay.addEventListener("transitionend", () => {
+          overlay.remove(); // Menghapus overlay dari DOM
+        });
+      };
 
-        function showDialog() {
-            dialogBox.style.opacity = "1";
-            dialogText.innerHTML = "";
-            updateDialogPointer();
-            typeWriterEffect(dialogData[index].text);
+      const dialogData = [
+        {
+          name: "Kael",
+          text: "Akhirnya... Monster Eclipse berhasil kita kalahkan!\nSekarang saatnya kita membangun kembali desa.",
+          leftActive: true,
+        },
+        {
+          name: "Elden",
+          text: "Kael, perjuangan kalian luar biasa.\nAtas nama seluruh desa, aku mengucapkan terima kasih.",
+          leftActive: false,
+        },
+        {
+          name: "Kael",
+          text: "Tidak masalah, Elden.\nIni adalah tanggung jawab kami untuk melindungi desa ini.",
+          leftActive: true,
+        },
+        {
+          name: "Elden",
+          text: "Namun, pertarungan tadi menyebabkan banyak kerusakan.\nSungai kotor, ForestSky yang gundul dan lain lain",
+          leftActive: false,
+        },
+        {
+          name: "Kael",
+          text: "Iya.. Aku menyadarinya...",
+          leftActive: true,
+        },
+        {
+          name: "Elden",
+          text: "Kael, aku ingin meminta satu hal lagi.\nTolong bantu kami memperbaiki ForestSky yang gundul dan membersihkan sampai di sungai agar desa ini bisa makmur lagi.",
+          leftActive: false,
+        },
+        {
+          name: "Kael",
+          text: "Tentu saja, Elden!\nAku dan yang lain akan membantu desa ini agar tetap sejahtera,\nserta menanam kembali di ForestSky tumbuhan agar desa ini kembali hijau!",
+          leftActive: true,
+        },
+        {
+          name: "Elden",
+          text: "Terima kasih, Kael.\nDengan bantuanmu, desa ini akan pulih dan berkembang lebih baik dari sebelumnya.",
+          leftActive: false,
+        },
+      ];
+
+      let index = 0;
+      let isTyping = false;
+      const dialogText = document.getElementById("dialogText");
+      const dialogBox = document.getElementById("dialogBox");
+      const charLeft = document.getElementById("charLeft");
+      const charRight = document.getElementById("charRight");
+
+      function showDialog() {
+        dialogBox.style.opacity = "1";
+        dialogText.innerHTML = "";
+        updateDialogPointer();
+        typeWriterEffect(dialogData[index].text);
+      }
+
+      function nextDialog() {
+        if (isTyping) return;
+
+        // Mainkan suara klik saat tombol "Next" diklik
+        const clickSound = document.getElementById("clickSound");
+        clickSound.play(); // Memainkan suara klik
+
+        if (index < dialogData.length - 1) {
+          index++;
+          updateDialogPointer();
+          typeWriterEffect(dialogData[index].text);
+
+          charLeft.classList.toggle("active", dialogData[index].leftActive);
+          charRight.classList.toggle("active", !dialogData[index].leftActive);
+        } else {
+          // Trigger fade-out animation
+          dialogBox.style.opacity = "0";
+          const fadeOutOverlay = document.createElement("div");
+          fadeOutOverlay.classList.add("overlay");
+          document.body.appendChild(fadeOutOverlay);
+
+          // Menunggu sebelum menambahkan class hidden untuk memulai fade-out
+          setTimeout(() => {
+            fadeOutOverlay.classList.add("hidden"); // Menambahkan class hidden setelah 0.5 detik
+          }, 500);
+
+          // After fade-out, redirect
+          setTimeout(() => {
+            window.location.href = "chooseChar.html"; // Redirect setelah dialog selesai
+          }, 1000);
         }
+      }
 
-        function nextDialog() {
-            if (isTyping) return;
-            if (index < dialogData.length - 1) {
-                index++;
-                updateDialogPointer();
-                typeWriterEffect(dialogData[index].text);
+      function updateDialogPointer() {
+        const arrow =
+          document.styleSheets[0].cssRules[
+            document.styleSheets[0].cssRules.length - 1
+          ];
+        if (dialogData[index].leftActive) {
+          arrow.style.setProperty("left", "10%");
+        } else {
+          arrow.style.setProperty("left", "90%");
+        }
+      }
 
-                charLeft.classList.toggle("active", dialogData[index].leftActive);
-                charRight.classList.toggle("active", !dialogData[index].leftActive);
+      function typeWriterEffect(text) {
+        let i = 0;
+        isTyping = true;
+        dialogText.innerHTML = "";
+        function type() {
+          if (i < text.length) {
+            if (text[i] === "\n") {
+              dialogText.innerHTML += "<br>"; // Ganti "\n" dengan baris baru
             } else {
-                dialogBox.style.opacity = "0";
-                setTimeout(() => {
-                    window.location.href = "chooseChar.html"; // Redirect setelah dialog selesai
-                }, 1000);
+              dialogText.innerHTML += text[i];
             }
+            i++;
+            setTimeout(type, 30);
+          } else {
+            isTyping = false;
+          }
         }
+        type();
+      }
 
-        function updateDialogPointer() {
-            const arrow = document.styleSheets[0].cssRules[document.styleSheets[0].cssRules.length - 1];
-            if (dialogData[index].leftActive) {
-                arrow.style.setProperty("left", "10%");
-            } else {
-                arrow.style.setProperty("left", "90%");
-            }
-        }
-
-        function typeWriterEffect(text) {
-            let i = 0;
-            isTyping = true;
-            dialogText.innerHTML = "";
-            function type() {
-                if (i < text.length) {
-                    if (text[i] === "\n") {
-                        dialogText.innerHTML += "<br>"; // Ganti "\n" dengan baris baru
-                    } else {
-                        dialogText.innerHTML += text[i];
-                    }
-                    i++;
-                    setTimeout(type, 30);
-                } else {
-                    isTyping = false;
-                }
-            }
-            type();
-        }
-
-        showDialog();
+      showDialog();
     </script>
-    <script src="../js/dialog.js"></script>
-</body>
+  </body>
 </html>
