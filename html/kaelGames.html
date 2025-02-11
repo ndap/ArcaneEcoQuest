@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Mission Kael | EcoQuest</title>
-  <style>
-    body,
-=======
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game with Plantable Trees</title>
     <style>
       body,
->>>>>>> 30033abdc4307da66771495897f5ae33b0b6d51b
       html {
         margin: 0;
         padding: 0;
@@ -322,7 +317,7 @@
       <source src="../assets/sounds/ButtonClick.mp3" type="audio/mp3" />
       Your browser does not support the audio element.
     </audio>
-
+              
     <script>
       // Function to create falling leaves with random properties
       function createFallingLeaves() {
@@ -619,31 +614,34 @@
       }
 
       function checkCompletion() {
-        if (treeCount === MAX_TREES) {
-          const popup = document.createElement("div");
-          popup.className = "popup";
-          popup.style.position = "fixed";
-          popup.style.top = "50%";
-          popup.style.left = "50%";
-          popup.style.transform = "translate(-50%, -50%)";
-          popup.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-          popup.style.color = "white";
-          popup.style.padding = "20px";
-          popup.style.borderRadius = "10px";
-          popup.style.textAlign = "center";
-          popup.style.zIndex = "10000";
+    if (treeCount === MAX_TREES) {
+        const popup = document.createElement("div");
+        popup.className = "popup";
+        popup.style.position = "fixed";
+        popup.style.top = "50%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        popup.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+        popup.style.color = "white";
+        popup.style.padding = "20px";
+        popup.style.borderRadius = "10px";
+        popup.style.textAlign = "center";
+        popup.style.zIndex = "10000";
+        popup.style.display = "flex";
+        popup.style.flexDirection = "column";  // Stack items vertically
+        popup.style.justifyContent = "center"; // Center vertically within the popup
 
-          popup.innerHTML = `
-      <h2>You have completed Kael's mission!</h2>
-      <a href="../html/chooseChar2.html">
-      <button>Proceed to next mission</button>
-      </a>
-    `;
+        popup.innerHTML = `
+            <h2>You have completed Kael's mission!</h2>
+            <a href="../html/chooseChar2.html">
+                <button>Proceed to next mission</button>
+            </a>
+        `;
 
-          // Append the popup to the body
-          document.body.appendChild(popup);
-        }
-      }
+        document.body.appendChild(popup);
+    }
+}
+
 
       function proceedToNextMission() {
         console.log("Proceeding to next mission...");
@@ -830,3 +828,4 @@
     </script>
   </body>
 </html>
+
