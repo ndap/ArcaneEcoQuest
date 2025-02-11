@@ -50,7 +50,8 @@ body {
     font-size: 18px;
     text-align: left;
     min-height: 50px;
-    white-space: nowrap;
+    white-space: normal; /* Mengizinkan teks turun ke bawah */
+    word-wrap: break-word; /* Memastikan kata panjang tidak keluar dari box */
     overflow: hidden;
 }
 .next-button {
@@ -80,4 +81,3 @@ body {
     border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
     transition: left 0.3s;
 }
-
