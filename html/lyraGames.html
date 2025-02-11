@@ -28,6 +28,12 @@
             font-size: 18px;
             font-weight: bold;
             color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-radius: 10px;
         }
         .game-container {
             position: relative;
@@ -205,26 +211,47 @@
             '../assets/sprite/sampah7.png'
         ];
 
-        function getRandomPosition() {
-            const x = Math.random() * (gameContainer.clientWidth - 100) + 50;
-            const y = Math.random() * (gameContainer.clientHeight - 100) + 50;
-            return { x, y };
-        }
+            // Mendapatkan elemen gambar Lyra
+    const lyraImage = document.getElementById("lyra-image");
 
-        function createTrash() {
-            for (let i = 0; i < remainingTrash; i++) {
-                let trash = document.createElement("div");
-                trash.classList.add("trash");
-                let trashType = trashImages[Math.floor(Math.random() * trashImages.length)];
-                trash.style.background = `url('${trashType}') no-repeat center center/contain`;
-                let position = getRandomPosition();
-                trash.style.left = `${position.x}px`;
-                trash.style.top = `${position.y}px`;
-                trash.draggable = true;
-                trash.addEventListener("dragstart", dragStart);
-                gameContainer.appendChild(trash);
-            }
-        }
+// Menghitung posisi dan ukuran gambar Lyra
+function getLyraBounds() {
+    return lyraImage.getBoundingClientRect();
+}
+
+// Memeriksa apakah posisi sampah berada di dalam area gambar Lyra
+function isPositionInLyraArea(x, y) {
+    const lyraBounds = getLyraBounds();
+    return x > lyraBounds.left && x < lyraBounds.right && y > lyraBounds.top && y < lyraBounds.bottom;
+}
+
+// Mendapatkan posisi acak untuk sampah
+function getRandomPosition() {
+    let x, y;
+
+    // Pastikan posisi sampah tidak berada di area gambar Lyra
+    do {
+        x = Math.random() * (gameContainer.clientWidth - 100) + 50;
+        y = Math.random() * (gameContainer.clientHeight - 100) + 50;
+    } while (isPositionInLyraArea(x, y)); // Cek apakah posisi di dalam area Lyra, jika iya coba lagi
+
+    return { x, y };
+}
+
+function createTrash() {
+    for (let i = 0; i < remainingTrash; i++) {
+        let trash = document.createElement("div");
+        trash.classList.add("trash");
+        let trashType = trashImages[Math.floor(Math.random() * trashImages.length)];
+        trash.style.background = `url('${trashType}') no-repeat center center/contain`;
+        let position = getRandomPosition();
+        trash.style.left = `${position.x}px`;
+        trash.style.top = `${position.y}px`;
+        trash.draggable = true;
+        trash.addEventListener("dragstart", dragStart);
+        gameContainer.appendChild(trash);
+    }
+}
 
         function dragStart(event) {
             event.dataTransfer.setData("text", "");
