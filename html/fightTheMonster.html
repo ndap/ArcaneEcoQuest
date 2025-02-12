@@ -124,6 +124,42 @@
         border: 1px solid rgba(255,255,255,0.1);
       }
 
+      .intro-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1a1f25;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 3000;
+        opacity: 1;
+        transition: opacity 1.5s ease-out;
+      }
+
+      .intro-overlay.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .intro-text {
+        font-size: 2.5em;
+        color: #fff;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s ease forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       #playMusicButton:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -301,7 +337,6 @@
         box-shadow: 0 8px 15px rgba(0,0,0,0.2);
       }
 
-      /* New Victory Animation Styles */
       .victory-overlay {
         position: fixed;
         top: 0;
@@ -341,6 +376,11 @@
     </style>
   </head>
   <body>
+    <!-- Add this right after the body tag -->
+    <div class="intro-overlay" id="introOverlay">
+      <div class="intro-text">EcoQuest: Plant Evolution</div>
+    </div>
+
     <audio id="correctSound" src="../assets/sounds/Accept.mp3"></audio>
     <audio id="wrongSound" src="../assets/sounds/wrong_answer.mp3"></audio>
     <audio id="backgroundMusic" src="../assets/sounds/FightBS.mp3" loop></audio>
@@ -384,14 +424,36 @@
       </button>
     </div>
 
-    <!-- New Victory Overlay -->
     <div class="victory-overlay" id="victoryOverlay">
       <div class="victory-text">
-        Congrats, you revive the lumorra tree again
+        Congratulations, you have succeeded in reviving the Lumorra tree
       </div>
     </div>
 
     <script>
+
+      // Separate initialization function
+      function initializeGame() {
+        updateHealth();
+        updatePlantStage();
+        displayQuestion();
+      }
+
+      // Handle intro sequence
+      document.addEventListener('DOMContentLoaded', function() {
+        // Show intro for 2 seconds before fading out
+        setTimeout(() => {
+          const overlay = document.getElementById('introOverlay');
+          if (overlay) {
+            overlay.classList.add('fade-out');
+          }
+        }, 2000);
+
+        // Initialize game after fade completes
+        setTimeout(() => {
+          initializeGame();
+        }, 3500);
+      });
       let currentStage = 0;
       let wrongAnswers = 0;
       let playerHealth = 100;
@@ -515,52 +577,72 @@
       }
 
       async function checkAnswer(selectedIndex) {
-        clearInterval(timerInterval);
-        const correct = currentQuestion.correct === selectedIndex;
+    clearInterval(timerInterval);
+    const correct = currentQuestion.correct === selectedIndex;
 
-        if (correct) {
-          document.getElementById("correctSound").play();
-          await moveCharacter();
-          currentStage++;
-          updatePlantStage();
-        } else {
-          document.getElementById("wrongSound").play();
-          wrongAnswers++;
-          playerHealth -= healthDecrement;
-          updateHealth();
-          shakeButton();
+    if (correct) {
+        document.getElementById("correctSound").play();
+        await moveCharacter();
+        
+        // Increment stage setelah jawaban benar
+        currentStage++;
+        
+        // Cek apakah ini adalah stage terakhir (9 karena array dimulai dari 0)
+        if (currentStage === questionCount - 1) {
+            updatePlantStage(); // Update tampilan plant terakhir
+            endGame(true);  // Langsung panggil victory
+            return;
         }
-
-        if (wrongAnswers >= maxWrongAnswers || currentStage >= questionCount) {
-          endGame(currentStage >= questionCount);
-          return;
+        
+        updatePlantStage();
+    } else {
+        document.getElementById("wrongSound").play();
+        wrongAnswers++;
+        playerHealth -= healthDecrement;
+        updateHealth();
+        shakeButton();
+        
+        if (wrongAnswers >= maxWrongAnswers) {
+            endGame(false);
+            return;
         }
+    }
 
-        displayQuestion();
-      }
+    displayQuestion();
+}
 
-      function handleTimeOut() {
-        checkAnswer(-1);
-      }
+function endGame(isVictory) {
+    clearInterval(timerInterval);
 
-      function endGame(isVictory) {
-        if (isVictory) {
-            const victoryOverlay = document.getElementById('victoryOverlay');
-            victoryOverlay.classList.add('active');
-            
-            setTimeout(() => {
-                window.location.href = "../html/VictoryScene.html";
-            }, 3000);
-        } else {
-            const gameOver = document.getElementById("gameOver");
-            const gameOverText = document.getElementById("gameOverText");
-            gameOver.style.display = "flex";
-            gameOverText.textContent = "Game Over";
-            document.getElementById("restartButton").style.display = "block";
+    if (isVictory) {
+        console.log("Victory triggered!"); // Debugging
+        const victoryOverlay = document.getElementById('victoryOverlay');
+        if (!victoryOverlay) {
+            console.error("Victory overlay element not found!"); // Debugging
+            return;
         }
-      }
+        
+        // Show the overlay first
+        victoryOverlay.classList.add('active');
+        
+        // Wait for overlay animation and text to complete before redirecting
+        setTimeout(() => {
+            console.log("Redirecting..."); // Debugging
+            window.location.href = "../html/VictoryScene.html";
+        }, 3000); // 3 seconds delay
+    } else {
+        const gameOver = document.getElementById("gameOver");
+        const gameOverText = document.getElementById("gameOverText");
+        gameOver.style.display = "flex";
+        gameOverText.textContent = "Game Over";
+        document.getElementById("restartButton").style.display = "block";
+    }
+}
 
-      function restartGame() {
+// Pastikan constant questionCount sesuai dengan jumlah stage
+
+
+    function restartGame() {
         currentStage = 0;
         wrongAnswers = 0;
         playerHealth = 100;
@@ -571,10 +653,10 @@
         updatePlantStage();
         
         document.getElementById("gameOver").style.display = "none";
-        document.getElementById("victoryOverlay").classList.remove("active");
+        document.getElementById("victoryOverlay").classList.remove('active');
         
         displayQuestion();
-      }
+    }
 
       const plantStages = [
         { name: "Dormant", image: "../assets/sprite/lumorra1.png" },
@@ -590,17 +672,108 @@
       ];
 
       const questions = [
-        {
-          question: "What do plants need to grow?",
-          answers: [
-            "Only water",
-            "Only sunlight",
-            "Water, sunlight, and nutrients",
-            "Just nutrients"
-          ],
-          correct: 2
-        }
-      ];
+    {
+        question: "Apa yang dibutuhkan tanaman untuk tumbuh?",
+        answers: [
+            "Hanya air",
+            "Hanya sinar matahari",
+            "Air, sinar matahari, dan nutrisi",
+            "Hanya nutrisi"
+        ],
+        correct: 2
+    },
+    {
+        question: "Bagian tanaman mana yang menyerap air dan nutrisi dari tanah?",
+        answers: [
+            "Daun",
+            "Batang",
+            "Akar",
+            "Bunga"
+        ],
+        correct: 2
+    },
+    {
+        question: "Proses apa yang digunakan tanaman untuk membuat makanannya sendiri?",
+        answers: [
+            "Fotosintesis",
+            "Pencernaan",
+            "Penyerapan",
+            "Respirasi"
+        ],
+        correct: 0
+    },
+    {
+        question: "Gas apa yang diserap tanaman selama fotosintesis?",
+        answers: [
+            "Oksigen",
+            "Karbon dioksida",
+            "Nitrogen",
+            "Hidrogen"
+        ],
+        correct: 1
+    },
+    {
+        question: "Apa fungsi utama daun pada tanaman?",
+        answers: [
+            "Menyimpan air",
+            "Mendukung tanaman",
+            "Membuat makanan melalui fotosintesis",
+            "Menyerap nutrisi"
+        ],
+        correct: 2
+    },
+    {
+        question: "Bagian tanaman mana yang membantu dalam reproduksi?",
+        answers: [
+            "Akar",
+            "Batang",
+            "Daun",
+            "Bunga"
+        ],
+        correct: 3
+    },
+    {
+        question: "Apa yang membantu tanaman mengangkut air dan nutrisi ke seluruh tubuhnya?",
+        answers: [
+            "Akar",
+            "Sistem vaskular",
+            "Daun",
+            "Klorofil"
+        ],
+        correct: 1
+    },
+    {
+        question: "Apa warna klorofil, pigmen yang membantu tanaman membuat makanan?",
+        answers: [
+            "Merah",
+            "Biru",
+            "Hijau",
+            "Kuning"
+        ],
+        correct: 2
+    },
+    {
+        question: "Bagaimana cara tanaman membantu menjaga atmosfer Bumi?",
+        answers: [
+            "Dengan menghasilkan oksigen",
+            "Dengan menghasilkan karbon dioksida",
+            "Dengan menyerap oksigen",
+            "Dengan menyimpan nitrogen"
+        ],
+        correct: 0
+    },
+    {
+        question: "Apa proses pergerakan air yang naik melalui tanaman disebut?",
+        answers: [
+            "Penyerapan",
+            "Transpirasi",
+            "Kondensasi",
+            "Evaporasi"
+        ],
+        correct: 1
+    }
+];
+
 
       window.onload = function() {
         updateHealth();

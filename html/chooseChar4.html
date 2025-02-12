@@ -5,11 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Character | EcoQuest</title>
     <link rel="stylesheet" href="../css/chooseChar4.css">
+    <style>
+        #video-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 9999;
+        }
+
+        #character-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        #close-video {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            cursor: pointer;
+            z-index: 10000;
+        }
+    </style>
 </head>
 <body>
-     <div id="black-screen"></div>
+    <div id="black-screen"></div>
     <div class="image-container">
         <img src="../assets/sprite/titleChooseChar.png" alt="Choose Your Character">
+    </div>
+    <!-- Video Overlay -->
+    <div id="video-overlay">
+        <button id="close-video" onclick="closeVideo()">Close</button>
+        <video id="character-video">
+            <source src="../assets/video/seleneFotosintesis.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
      <!-- Play and Pause buttons -->
     <div class="music-controls">
@@ -28,6 +66,88 @@
         <img src="../assets/sprite/finn.png" alt="elden">
     </div>
 
-    <script src="../js/chooseChar4.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const characters = document.querySelectorAll(".img-character img");
+            const lockedCharacters = ["kael", "lyra", "selene"];
+            const videoOverlay = document.getElementById("video-overlay");
+            const characterVideo = document.getElementById("character-video");
+            
+            // Tambahkan event listener untuk video ended
+            characterVideo.addEventListener('ended', function() {
+                window.location.href = "../html/TheEnd.html"; // Ganti dengan path halaman tujuan
+            });
+            
+            characters.forEach(character => {
+                const characterName = character.alt.toLowerCase();
+                
+                if (lockedCharacters.includes(characterName)) {
+                    character.style.opacity = "0.5";
+                    character.style.cursor = "not-allowed";
+                    character.addEventListener("click", function () {
+                        alert("Karakter ini terkunci!");
+                    });
+                } else {
+                    character.style.cursor = "pointer";
+                    character.addEventListener("click", function () {
+                        if (characterName === "elden") {
+                            videoOverlay.style.display = "block";
+                            characterVideo.play();
+                            // Pause background music while video is playing
+                            audio.pause();
+                            isPlaying = false;
+                            playButton.style.display = "inline-block";
+                            pauseButton.style.display = "none";
+                        }
+                    });
+                }
+            });
+        });
+
+        function closeVideo() {
+            const videoOverlay = document.getElementById("video-overlay");
+            const characterVideo = document.getElementById("character-video");
+            videoOverlay.style.display = "none";
+            characterVideo.pause();
+            characterVideo.currentTime = 0;
+        }
+
+        window.addEventListener('load', function() {
+            const blackScreen = document.getElementById('black-screen');
+            
+            setTimeout(function() {
+                blackScreen.style.opacity = 0;
+                setTimeout(function() {
+                    blackScreen.style.display = 'none';
+                }, 1000);
+            }, 500);
+        });
+
+        let isPlaying = false;
+        const audio = document.getElementById("background-music");
+        const playButton = document.getElementById("play-button");
+        const pauseButton = document.getElementById("pause-button");
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                playButton.style.display = "inline-block";
+                pauseButton.style.display = "none";
+            } else {
+                audio.play();
+                playButton.style.display = "none";
+                pauseButton.style.display = "inline-block";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        window.addEventListener("load", function () {
+            audio.play();
+            isPlaying = true;
+            playButton.style.display = "none";
+            pauseButton.style.display = "inline-block";
+        });
+
+    </script>
 </body>
 </html>
