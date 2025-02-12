@@ -95,6 +95,31 @@
         z-index: 2;
       }
 
+      /* Add pseudo-element for the box below the arrow */
+      .plant-indicator::after {
+        content: '';
+        position: absolute;
+        width: 24px;           /* Smaller width */
+        height: 24px;          /* Smaller height */
+        border: 2px solid #ffffff;  /* White border */
+        border-radius: 4px;    /* Slightly rounded corners */
+        background-color: rgba(0, 0, 0, 0.2);  /* Semi-transparent background */
+        left: 50%;            /* Center horizontally */
+        transform: translateX(-50%);  /* Adjust for centering */
+        top: 100%;           /* Position below the arrow */
+        margin-top: 5px;     /* Small gap between arrow and box */
+        z-index: 1;          /* Below the arrow */
+      }
+
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
       .tree {
         position: absolute;
         width: 64px;
