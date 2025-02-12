@@ -289,22 +289,23 @@
     </div>
 
     <div id="popupInstructions" class="popup">
-      <h2>Welcome to Celine Task</h2>
+      <h2>Welcome to the task!</h2>
       <p>
-        klik <strong>A</strong> untuk gerak ke kiri dan <strong>D</strong> untuk gerak ke kanan.
+        Use <strong>A</strong> untuk bergerak ke kiri and <strong>D</strong> untuk gerak ke kanan
       </p>
+      <p>Matahari tidak boleh <strong>Sampai Jatuh</strong> Ke tanah.</p>
       <p>
-        Tangkap <strong>suns ☀</strong> for mana, hindar <strong>dark suns ☁</strong>. agar nyawamu tidak berkurang
-
+        Tangkap <strong>matahari ☀</strong> untuk mana, hindari
+        <strong>dark suns ☁</strong>.
       </p>
-      <p>Reach 250 mana to win!</p>
+      <p>Reach 250 Mana to win!</p>
       <button onclick="startGame()">Start Game</button>
     </div>
 
     <div id="gameContainer">
       <div id="ui">
         <div id="lives"></div>
-        <div id="score">Mana: 0</div>
+        <div id="score">Score: 0</div>
       </div>
       <div id="player"></div>
     </div>
@@ -316,8 +317,9 @@
     </div>
 
     <div id="victory" class="popup">
-      <h2>Mana tercukupi!</h2>
-      <p>Celine sekarang bisa menyalurkan energi matahari ke tumbuhan yang ditanam kael!</p>
+      <h2>Mana Sudah Cukup</h2>
+      <p>Celine sekarang bisa memulai menyalurkan energi sinar matahari kepada pohon</p>
+      <p>Total Mana: <span id="victoryScore">200</span></p>
       <button onclick="playEndingSequence()">Continue</button>
     </div>
 
