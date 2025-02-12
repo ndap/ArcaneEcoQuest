@@ -13,8 +13,7 @@
       rel="stylesheet"
     />
     <style>
-      /* Base styles remain the same */
-     * {
+      * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -49,21 +48,16 @@
         border-bottom: 2px solid rgba(255,255,255,0.1);
       }
 
-      /* Enhanced Health Bar Styles */
       .health-bar-container {
         position: absolute;
         top: 20px;
         left: 20px;
         width: 350px;
         padding: 15px;
-        background: rgba(0,0,0,0.6);
-        backdrop-filter: blur(10px);
         border-radius: 15px;
-        border: 1px solid rgba(255,255,255,0.1);
         display: flex;
         align-items: center;
         gap: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       }
 
       .health-icon {
@@ -89,7 +83,6 @@
         transition: width 0.3s ease-out;
       }
 
-      /* Enhanced Progress Bar */
       .progress-bar {
         position: absolute;
         top: 20px;
@@ -113,7 +106,6 @@
         transition: width 0.5s ease-out;
       }
 
-      /* Enhanced Music Button */
       #playMusicButton {
         position: absolute;
         top: 20px;
@@ -142,24 +134,22 @@
         animation: shake 0.5s ease-in-out;
       }
 
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px) rotate(-5deg); }
-        75% { transform: translateX(5px) rotate(5deg); }
-      }
-
-      /* Enhanced Character and Plant */
       .character {
         position: absolute;
         bottom: -5px;
         left: 10%;
         width: 250px;
         height: 250px;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background-image: url('../assets/sprite/characterFight.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        transition: transform 0.3s ease-out;
+        z-index: 2;
+      }
+
+      .character.move-right {
+        transform: translateX(600px);
       }
 
       .plant {
@@ -168,15 +158,10 @@
         right: 10%;
         width: 500px;
         height: 500px;
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-      }
-
-      .character-move {
-        transform: translateX(100px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .plant-evolution {
@@ -184,12 +169,17 @@
       }
 
       @keyframes growPlant {
-        0% { transform: scale(0.9); opacity: 0.7; filter: brightness(0.8); }
-        50% { transform: scale(1.1); opacity: 0.85; filter: brightness(1.2); }
-        100% { transform: scale(1); opacity: 1; filter: brightness(1); }
+        0% { transform: scale(0.9); opacity: 0.7; }
+        50% { transform: scale(1.1); opacity: 0.85; }
+        100% { transform: scale(1); opacity: 1; }
       }
 
-      /* Enhanced Game Footer */
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px) rotate(-5deg); }
+        75% { transform: translateX(5px) rotate(5deg); }
+      }
+
       .game-footer {
         background: rgba(0,0,0,0.8);
         backdrop-filter: blur(10px);
@@ -211,15 +201,12 @@
         border: 1px solid rgba(76,175,80,0.2);
         border-radius: 15px;
         width: 280px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        backdrop-filter: blur(10px);
       }
 
       .plant-stage {
         font-size: 18px;
         color: #fff;
         font-weight: 600;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
       }
 
       .question {
@@ -235,8 +222,6 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        backdrop-filter: blur(10px);
       }
 
       .timer {
@@ -246,10 +231,8 @@
         font-size: 28px;
         font-weight: 700;
         color: #fff;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
       }
 
-      /* Enhanced Answer Buttons */
       .answers {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -267,11 +250,9 @@
         color: white;
         cursor: pointer;
         text-align: center;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s ease;
         font-size: 16px;
         font-weight: 500;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        backdrop-filter: blur(10px);
       }
 
       .answer:hover {
@@ -280,12 +261,6 @@
         background: linear-gradient(135deg, #45a049, #75b578);
       }
 
-      .answer:active {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-
-      /* Enhanced Game Over Screen */
       .game-over {
         position: fixed;
         top: 0;
@@ -306,8 +281,6 @@
         margin-bottom: 40px;
         color: #fff;
         text-shadow: 0 0 20px rgba(255,255,255,0.5);
-        font-weight: 700;
-        letter-spacing: 2px;
       }
 
       .restart-btn {
@@ -319,67 +292,60 @@
         cursor: pointer;
         font-size: 1.5em;
         font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
       }
 
       .restart-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        background: linear-gradient(135deg, #45a049, #75b578);
       }
 
-      /* Enhanced Victory Message */
-      .victory-message {
+      /* New Victory Animation Styles */
+      .victory-overlay {
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2.5em;
-        color: #fff;
-        text-align: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
         opacity: 0;
-        z-index: 2001;
-        transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-        text-shadow: 0 0 20px rgba(255,255,255,0.5);
-        font-weight: 700;
-        letter-spacing: 1px;
+        z-index: 2000;
+        pointer-events: none;
+        transition: opacity 1.5s ease, background-color 1.5s ease;
       }
 
-      .victory-message.active {
+      .victory-overlay.active {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.1);
+        background-color: rgba(255, 255, 255, 1);
+        pointer-events: auto;
       }
 
-      /* Additional Animation Classes */
-      .fade-in {
-        animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+      .victory-text {
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
+        color: #000;
+        text-align: center;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 1s ease 0.5s;
       }
 
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .pulse {
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
+      .victory-overlay.active .victory-text {
+        transform: translateY(0);
+        opacity: 1;
       }
     </style>
   </head>
-  <body class="fade-in">
-    <audio id="correctSound" src="../assets/sounds/correct_answer.mp3"></audio>
+  <body>
+    <audio id="correctSound" src="../assets/sounds/Accept.mp3"></audio>
     <audio id="wrongSound" src="../assets/sounds/wrong_answer.mp3"></audio>
-    <audio id="backgroundMusic" src="../assets/sounds/garden_background.mp3" loop></audio>
+    <audio id="backgroundMusic" src="../assets/sounds/FightBS.mp3" loop></audio>
 
     <div class="game-container">
       <div class="game-screen">
-        <!-- Health Bar -->
         <div class="health-bar-container">
           <span class="health-icon">❤️</span>
           <div class="health-bar">
@@ -387,16 +353,14 @@
           </div>
         </div>
 
-        <!-- Progress Bar -->
         <div class="progress-bar">
           <div class="progress-fill" id="progressBar"></div>
         </div>
 
-        <!-- Music Button -->
         <button id="playMusicButton" onclick="toggleMusic()">Play Music</button>
 
-        <div class="character"></div>
-        <div class="plant"></div>
+        <div class="character" id="character"></div>
+        <div class="plant" id="plant"></div>
       </div>
 
       <div class="game-footer">
@@ -419,13 +383,14 @@
       </button>
     </div>
 
-    <div class="victory-message" id="victoryMessage">
-      Congratulations! You've helped the plant reach full growth!
+    <!-- New Victory Overlay -->
+    <div class="victory-overlay" id="victoryOverlay">
+      <div class="victory-text">
+        Congrats, you revive the lumorra tree again
+      </div>
     </div>
 
     <script>
-      // Game state variables
-      let currentQuestion = 0;
       let currentStage = 0;
       let wrongAnswers = 0;
       let playerHealth = 100;
@@ -433,11 +398,14 @@
       let timeLeft = 12;
       const maxWrongAnswers = 3;
       const questionCount = 10;
-      const healthDecrement = 33.33; // Amount to decrease health by (100% / 3)
+      const healthDecrement = 33.33;
+      let usedQuestions = [];
+      let currentQuestion = null;
 
-      // Audio setup
       const backgroundMusic = document.getElementById("backgroundMusic");
       backgroundMusic.volume = 0.1;
+
+      let isMoving = false;
 
       function toggleMusic() {
         if (backgroundMusic.paused) {
@@ -449,20 +417,17 @@
         }
       }
 
-      // Update health bar
       function updateHealth() {
         const healthBar = document.getElementById("healthFill");
         healthBar.style.width = `${playerHealth}%`;
       }
 
-      // Shake music button animation
       function shakeButton() {
         const button = document.getElementById("playMusicButton");
         button.classList.add("shake");
         setTimeout(() => button.classList.remove("shake"), 500);
       }
 
-      // Timer functions
       function startTimer() {
         clearInterval(timerInterval);
         timeLeft = 12;
@@ -483,7 +448,23 @@
         document.getElementById("timer").textContent = timeLeft;
       }
 
-      // Display functions
+      async function moveCharacter() {
+        if (isMoving) return;
+        
+        isMoving = true;
+        const character = document.getElementById('character');
+        character.classList.add('move-right');
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        character.classList.remove('move-right');
+        
+        await new Promise(resolve => setTimeout(resolve
+        , 300));
+        
+        isMoving = false;
+      }
+
       function updatePlantStage() {
         const plant = document.querySelector(".plant");
         const plantStageText = document.getElementById("plantStage");
@@ -492,20 +473,36 @@
         plant.style.backgroundImage = `url(${plantStages[currentStage].image})`;
         plantStageText.textContent = `Stage ${currentStage + 1}: ${plantStages[currentStage].name}`;
         progressBar.style.width = `${(currentStage / (questionCount - 1)) * 100}%`;
-
         plant.classList.add("plant-evolution");
         setTimeout(() => plant.classList.remove("plant-evolution"), 500);
       }
 
+      function getRandomQuestion() {
+        const availableQuestions = questions.filter(q => !usedQuestions.includes(q));
+        
+        if (availableQuestions.length === 0) {
+          usedQuestions = [];
+          return questions[Math.floor(Math.random() * questions.length)];
+        }
+        
+        const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+        const selectedQuestion = availableQuestions[randomIndex];
+        
+        usedQuestions.push(selectedQuestion);
+        
+        return selectedQuestion;
+      }
+
       function displayQuestion() {
-        const question = questions[currentQuestion];
+        currentQuestion = getRandomQuestion();
+        
         document.getElementById("question").innerHTML = 
-          `<div class="timer" id="timer">12</div>${question.question}`;
+          `<div class="timer" id="timer">12</div>${currentQuestion.question}`;
 
         const answersContainer = document.getElementById("answers");
         answersContainer.innerHTML = "";
 
-        question.answers.forEach((answer, index) => {
+        currentQuestion.answers.forEach((answer, index) => {
           const button = document.createElement("button");
           button.className = "answer";
           button.textContent = answer;
@@ -516,22 +513,13 @@
         startTimer();
       }
 
-      // Animation functions
-      async function characterMoveForward() {
-        const character = document.querySelector(".character");
-        character.classList.add("character-move");
-        await new Promise(resolve => setTimeout(resolve, 300));
-        character.classList.remove("character-move");
-      }
-
-      // Game logic functions
       async function checkAnswer(selectedIndex) {
         clearInterval(timerInterval);
-        const correct = questions[currentQuestion].correct === selectedIndex;
+        const correct = currentQuestion.correct === selectedIndex;
 
         if (correct) {
           document.getElementById("correctSound").play();
-          await characterMoveForward();
+          await moveCharacter();
           currentStage++;
           updatePlantStage();
         } else {
@@ -547,7 +535,6 @@
           return;
         }
 
-        currentQuestion = (currentQuestion + 1) % questions.length;
         displayQuestion();
       }
 
@@ -556,57 +543,51 @@
       }
 
       function endGame(isVictory) {
-        const gameOver = document.getElementById("gameOver");
-        const gameOverText = document.getElementById("gameOverText");
-        const victoryMessage = document.getElementById("victoryMessage");
-
         if (isVictory) {
-          victoryMessage.classList.add("active");
-          setTimeout(() => {
-            window.location.href = "../html/VictoryScene.html";
-          }, 3000);
+            const victoryOverlay = document.getElementById('victoryOverlay');
+            victoryOverlay.classList.add('active');
+            
+            setTimeout(() => {
+                window.location.href = "../html/VictoryScene.html";
+            }, 3000);
         } else {
-          gameOver.style.display = "flex";
-          gameOverText.textContent = "Game Over";
-          document.getElementById("restartButton").style.display = "block";
+            const gameOver = document.getElementById("gameOver");
+            const gameOverText = document.getElementById("gameOverText");
+            gameOver.style.display = "flex";
+            gameOverText.textContent = "Game Over";
+            document.getElementById("restartButton").style.display = "block";
         }
       }
 
       function restartGame() {
-        currentQuestion = 0;
         currentStage = 0;
         wrongAnswers = 0;
         playerHealth = 100;
+        usedQuestions = [];
+        currentQuestion = null;
         
-        // Reset health bar
         updateHealth();
-        
-        // Reset plant stage and progress
         updatePlantStage();
         
-        // Reset game over screen
         document.getElementById("gameOver").style.display = "none";
-        document.getElementById("victoryMessage").classList.remove("active");
+        document.getElementById("victoryOverlay").classList.remove("active");
         
-        // Start new game
         displayQuestion();
       }
 
-      // Plant evolution stages
       const plantStages = [
-        { name: "Dormant", image: "../assets/sprite/pohon.png" },
-        { name: "Sprouting", image: "../assets/sprite/pohon2.png" },
-        { name: "Young Growth", image: "../assets/sprite/pohon3.png" },
-        { name: "Developing", image: "../assets/sprite/pohon4.png" },
-        { name: "Growing", image: "../assets/sprite/pohon5.png" },
-        { name: "Maturing", image: "../assets/sprite/pohon6.png" },
-        { name: "Budding", image: "../assets/plants/stage7.png" },
-        { name: "Flowering", image: "../assets/plants/stage8.png" },
-        { name: "Blooming", image: "../assets/plants/stage9.png" },
-        { name: "Flourishing", image: "../assets/plants/stage10.png" }
+        { name: "Dormant", image: "../assets/sprite/lumorra1.png" },
+        { name: "Sprouting", image: "../assets/sprite/lumorra2.png" },
+        { name: "Young Growth", image: "../assets/sprite/lumorra3.png" },
+        { name: "Developing", image: "../assets/sprite/lumorra4.png" },
+        { name: "Growing", image: "../assets/sprite/lumorra5.png" },
+        { name: "Maturing", image: "../assets/sprite/lumorra6.png" },
+        { name: "Budding", image: "../assets/sprite/lumorra7.png" },
+        { name: "Flowering", image: "../assets/sprite/lumorra8.png" },
+        { name: "Blooming", image: "../assets/sprite/lumorra9.png" },
+        { name: "Flourishing", image: "../assets/sprite/lumorra10.png" }
       ];
 
-      // Questions array with plant-related content
       const questions = [
         {
           question: "What do plants need to grow?",
@@ -620,7 +601,6 @@
         }
       ];
 
-      // Initialize game on load
       window.onload = function() {
         updateHealth();
         updatePlantStage();
