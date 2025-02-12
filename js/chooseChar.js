@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             character.style.cursor = "pointer";
             character.addEventListener("click", function () {
+                let clickChar = document.getElementById("clickChar");
+                clickChar.play();
                 window.location.href = `../html/kaelMission.html?character=${characterName}`;
             });
         }

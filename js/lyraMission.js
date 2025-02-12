@@ -1,4 +1,5 @@
-const text = "Lyra memiliki misi untuk menyuburkan tanah dengan air dan menumbuhkan tanaman menggunakan kekuatan airnya. Ia dengan tekun menyiram tumbuhan dan merawatnya agar tetap segar dan subur. Lyra percaya bahwa dengan kekuatannya, ia dapat menjaga keseimbangan alam dan menginspirasi orang lain untuk peduli terhadap lingkungan.";
+const text =
+  "Hai, aku Lyra, teman Kael dan penyihir air. Tugas utamaku adalah memberikan air pada tanaman yang ditanam Kael dengan cara mengubah air menjadi hujan. Namun, sungai di desa Celestria sangat kotor, sehingga aku tidak bisa melakukannya. Aku harus membersihkan sungai ini terlebih dahulu.";
 const typingSpeed = 30; // Kecepatan mengetik (ms per karakter)
 let index = 0;
 
