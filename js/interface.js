@@ -115,6 +115,76 @@
          window.close(); // Mencoba menutup tab (mungkin tidak berfungsi di semua browser)
      });
  });
+
+  // Tambahkan JavaScript ini
+        const instruksiBtn = document.querySelector('.instruksi-btn');
+        const instructionModal = document.getElementById('instruction-modal');
+        const closeInstructionBtn = instructionModal.querySelector('.close-btn');
+        const closeInstructionButton = document.getElementById('close-instruction');
+
+        // Tampilkan modal instruksi saat tombol diklik
+        instruksiBtn.addEventListener('click', () => {
+            buttonClickSound.play();
+            instructionModal.style.display = 'flex';
+        });
+
+        // Tutup modal dengan tombol close
+        closeInstructionBtn.addEventListener('click', () => {
+            buttonClickSound.play();
+            instructionModal.style.display = 'none';
+        });
+
+        // Tutup modal dengan tombol OK
+        closeInstructionButton.addEventListener('click', () => {
+            buttonClickSound.play();
+            instructionModal.style.display = 'none';
+        });
+
+        // Tutup modal jika mengklik di luar modal
+        window.addEventListener('click', (event) => {
+            if (event.target === instructionModal) {
+                instructionModal.style.display = 'none';
+            }
+        });
+        // Tambahkan JavaScript ini ke bagian script yang sudah ada
+        const quitBtn = document.querySelector('.quit-btn');
+        const quitModal = document.getElementById('quit-modal');
+        const closeQuitBtn = quitModal.querySelector('.close-btn');
+        const confirmQuitBtn = document.getElementById('confirm-quit');
+        const cancelQuitBtn = document.getElementById('cancel-quit');
+        
+        // Tampilkan modal saat tombol quit diklik
+        quitBtn.addEventListener('click', () => {
+            buttonClickSound.play();
+            quitModal.style.display = 'block';
+        });
+        
+        // Tutup modal saat tombol close diklik
+        closeQuitBtn.addEventListener('click', () => {
+            buttonClickSound.play();
+            quitModal.style.display = 'none';
+        });
+        
+        // Konfirmasi quit
+        confirmQuitBtn.addEventListener('click', () => {
+            buttonClickSound.play();
+            window.close();
+            // Fallback jika window.close() tidak berhasil
+            window.location.href = "about:blank";
+        });
+        
+        // Batal quit
+        cancelQuitBtn.addEventListener('click', () => {
+            buttonClickSound.play();
+            quitModal.style.display = 'none';
+        });
+        
+        // Tutup modal jika mengklik di luar modal
+        window.addEventListener('click', (event) => {
+            if (event.target === quitModal) {
+                quitModal.style.display = 'none';
+            }
+        });
  
  
  

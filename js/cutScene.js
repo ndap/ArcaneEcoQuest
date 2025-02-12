@@ -25,7 +25,7 @@ videoPlayer.addEventListener("ended", () => {
 
   // Arahkan ke halaman berikutnya setelah 2 detik
   setTimeout(() => {
-    window.location.href = "../html/fightTheMonster.html"; // Ganti dengan URL tujuan
+    window.location.href = "../html/evolutionLumorra.html"; // Ganti dengan URL tujuan
   }, 2000); // Durasi layar loading
 });
 });
