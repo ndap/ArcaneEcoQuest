@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Character | EcoQuest</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(../assets/image/bgChooseChar.gif);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.425);
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 735px;
+            height: auto;
+            margin-top: -16px;
+        }
+
+        .img-character {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 40px;
+            margin-top: 20px;
+            align-items: center;
+            justify-items: center;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .character-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .character-container:hover {
+            transform: scale(1.05);
+        }
+
+        .character-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: filter 0.3s ease;
+        }
+
+        .character-container:hover img {
+            filter: brightness(1.1);
+        }
+
+        .character-name {
+            position: absolute;
+            bottom: -30px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(-10px);
+        }
+
+        .character-container:hover .character-name {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .music-controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .music-controls button {
+            padding: 8px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(145deg, #6e7c7b, #4b5c5a);
+            color: white;
+            border: 2px solid #333;
+            border-radius: 50px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .music-controls button:hover {
+            background: linear-gradient(145deg, #8e9e9d, #6c7b7a);
+            transform: scale(1.1);
+        }
+
+        #black-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="black-screen"></div>
+    <div class="image-container">
+        <img src="../assets/sprite/titleChooseChar.png" alt="Choose Your Character">
+    </div>
+
+    <div class="music-controls">
+        <button id="play-button" onclick="toggleMusic()">Play Music</button>
+        <button id="pause-button" onclick="toggleMusic()" style="display: none;">Pause Music</button>
+    </div>
+
+    <audio id="background-music" src="../assets/sounds/RoyaltyFantasy.mp3" loop></audio>
+
+    <div class="img-character">
+        <div class="character-container" data-character="kael">
+            <img src="../assets/sprite/kael.png" alt="Kael">
+            <div class="character-name">Kael</div>
+        </div>
+        <div class="character-container" data-character="lyra">
+            <img src="../assets/sprite/lyra.png" alt="Lyra">
+            <div class="character-name">Lyra</div>
+        </div>
+        <div class="character-container" data-character="selene">
+            <img src="../assets/sprite/selene.png" alt="Selene">
+            <div class="character-name">Selene</div>
+        </div>
+    </div>
+
+    <script>
+        // Character Selection with specific routes
+        document.addEventListener("DOMContentLoaded", function () {
+            const characters = document.querySelectorAll(".character-container");
+            
+            const characterRoutes = {
+                kael: '../html/kaelMission.html',
+                lyra: '../html/lyraMission.html',
+                selene: '../html/seleneMission.html',
+            };
+            
+            characters.forEach(character => {
+                character.addEventListener("click", function () {
+                    const characterType = this.dataset.character;
+                    const route = characterRoutes[characterType];
+                    if (route) {
+                        window.location.href = route;
+                    }
+                });
+            });
+        });
+
+        // Initial Loading Animation
+        window.addEventListener('load', function() {
+            const blackScreen = document.getElementById('black-screen');
+            setTimeout(function() {
+                blackScreen.style.opacity = 0;
+                setTimeout(function() {
+                    blackScreen.style.display = 'none';
+                }, 1000);
+            }, 500);
+        });
+
+        // Music Control
+        let isPlaying = false;
+        const audio = document.getElementById("background-music");
+        const playButton = document.getElementById("play-button");
+        const pauseButton = document.getElementById("pause-button");
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                playButton.style.display = "inline-block";
+                pauseButton.style.display = "none";
+            } else {
+                audio.play();
+                playButton.style.display = "none";
+                pauseButton.style.display = "inline-block";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Auto-play music on load
+        window.addEventListener("load", function () {
+            audio.play();
+            isPlaying = true;
+            playButton.style.display = "none";
+            pauseButton.style.display = "inline-block";
+        });
+    </script>
+</body>
+</html>
