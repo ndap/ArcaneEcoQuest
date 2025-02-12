@@ -475,10 +475,6 @@ async function checkAnswer(selectedIndex) {
             // Wait for message display (10 seconds)
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            // Show loading screen before moving on
-            const loadingScreen = document.getElementById("loadingScreen");
-            loadingScreen.style.display = "flex";
-
             // Wait for loading screen to appear
             await new Promise((resolve) => setTimeout(resolve, 2000));
 

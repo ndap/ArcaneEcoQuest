@@ -5,60 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Mission Lyra | EcoQuest</title>
     <style>
-<<<<<<< HEAD
-       body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            background: url('../assets/image/mapLyra.png') no-repeat center center/cover;
-            margin: 0;
-            overflow: hidden;
-            z-index: 1;
-            position: relative;
-        }
-        .game-info {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-            max-width: 800px;
-            margin-bottom: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-left: 8px;
-            padding-right: 8px;
-            border-radius: 10px;
-        }
-        .game-container {
-            position: relative;
-            width: 100vw;
-            height: 80vh;
-            background: url('../assets/image/bgLyraGames.png') no-repeat center center/cover;
-            overflow: hidden;
-        }
-        .trash-can {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 120px;
-            height: 140px;
-            background-image: url('https://i.imgur.com/LyONrJ3.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            background-color: rgba(0, 0, 0, 0.3); /* Sementara untuk cek apakah terlihat */
-            margin-top: 300px;
-            z-index: 999999; /* z-index sangat tinggi */
-        }
-=======
       body {
         font-family: Arial, sans-serif;
         display: flex;
@@ -111,7 +57,6 @@
         border-radius: 50%;
         filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.8));
       }
->>>>>>> 2118e37b1b09d988598cebd577bf8732bd96f8bf
 
       .trash-can.highlight {
         transform: translateY(-50%) scale(1.1);
@@ -539,88 +484,10 @@
         const overlay = document.getElementById("overlay");
         const startPopup = document.getElementById("startPopup");
 
-<<<<<<< HEAD
-        const trashImages = [
-            '../assets/sprite/sampah.png',
-            '../assets/sprite/sampah2.png',
-            '../assets/sprite/sampah3.png',
-            '../assets/sprite/sampah4.png',
-            '../assets/sprite/sampah5.png',
-            '../assets/sprite/sampah6.png',
-            '../assets/sprite/sampah7.png'
-        ];
-
-            // Mendapatkan elemen gambar Lyra
-    const lyraImage = document.getElementById("lyra-image");
-
-// Menghitung posisi dan ukuran gambar Lyra
-function getLyraBounds() {
-    return lyraImage.getBoundingClientRect();
-}
-
-// Memeriksa apakah posisi sampah berada di dalam area gambar Lyra
-function isPositionInLyraArea(x, y) {
-    const lyraBounds = getLyraBounds();
-    return x > lyraBounds.left && x < lyraBounds.right && y > lyraBounds.top && y < lyraBounds.bottom;
-}
-
-// Mendapatkan posisi acak untuk sampah
-function getRandomPosition() {
-    let x, y;
-
-    // Pastikan posisi sampah tidak berada di area gambar Lyra
-    do {
-        x = Math.random() * (gameContainer.clientWidth - 100) + 50;
-        y = Math.random() * (gameContainer.clientHeight - 100) + 50;
-    } while (isPositionInLyraArea(x, y)); // Cek apakah posisi di dalam area Lyra, jika iya coba lagi
-
-    return { x, y };
-}
-
-function createTrash() {
-    for (let i = 0; i < remainingTrash; i++) {
-        let trash = document.createElement("div");
-        trash.classList.add("trash");
-        let trashType = trashImages[Math.floor(Math.random() * trashImages.length)];
-        trash.style.background = `url('${trashType}') no-repeat center center/contain`;
-        let position = getRandomPosition();
-        trash.style.left = `${position.x}px`;
-        trash.style.top = `${position.y}px`;
-        trash.draggable = true;
-        trash.addEventListener("dragstart", dragStart);
-        gameContainer.appendChild(trash);
-    }
-}
-
-        function dragStart(event) {
-            event.dataTransfer.setData("text", "");
-            event.target.classList.add("dragging");
-            pickSound.play();
-        }
-
-        trashCan.addEventListener("dragover", event => event.preventDefault());
-        trashCan.addEventListener("drop", event => {
-            event.preventDefault();
-            let draggedItem = document.querySelector(".dragging");
-            if (draggedItem) {
-                draggedItem.classList.add("fade-out");
-                setTimeout(() => draggedItem.remove(), 500);
-                dropSound.play();
-                score += 10;
-                remainingTrash -= 1;
-                scoreDisplay.textContent = score;
-                remainingDisplay.textContent = remainingTrash;
-                if (remainingTrash === 0) {
-                    clearInterval(gameInterval);
-                    missionPopup.classList.add("show");
-                }
-            }
-=======
         // Start playing background music
         backgroundMusic.volume = 0.2; // Set volume to 50%
         backgroundMusic.play().catch((error) => {
           console.log("Audio play failed:", error);
->>>>>>> 2118e37b1b09d988598cebd577bf8732bd96f8bf
         });
 
         overlay.style.opacity = "0";
