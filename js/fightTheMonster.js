@@ -277,8 +277,8 @@ let playerHP = 100;
 let monsterHP = 100;
 let wrongAnswers = 0;
 let timerInterval;
-let timeLeft = 12;
-const maxWrongAnswers = 3;
+let timeLeft = 10;
+const maxWrongAnswers = 4;
 const monsterHitPoints = 10;
 
 function startTimer() {
@@ -318,7 +318,7 @@ function handleAnswerButtonClick(selectedIndex) {
 function displayQuestion() {
     const question = shuffledQuestions[currentQuestion];
     document.getElementById("question").innerHTML = 
-        `<div class="timer" id="timer">12</div>${question.question}`;
+        `<div class="timer" id="timer">10</div>${question.question}`;
 
     const answersContainer = document.getElementById("answers");
     answersContainer.innerHTML = "";
@@ -444,10 +444,12 @@ async function checkAnswer(selectedIndex) {
             const monster = document.querySelector(".monster");
             const victoryOverlay = document.getElementById("victoryOverlay");
             const victoryMessage = document.getElementById("victoryMessage");
+            
             const AudioBackSound = document.getElementById("fightBackgroundSound");
             const SwordBS = document.getElementById("swordbacksound");
 
-            // Play background sound
+          // Play background sound
+          AudioBackSound.volume = 1;
             AudioBackSound.pause();
             SwordBS.play();
 
