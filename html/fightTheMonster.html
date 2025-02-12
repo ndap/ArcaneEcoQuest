@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plant Evolution | EcoQuest</title>
+    <title>Arcane Eco Quest |</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -17,7 +17,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
       }
 
       body {
@@ -33,7 +33,11 @@
       .game-container {
         width: 100vw;
         height: 100vh;
-        background: linear-gradient(180deg, rgba(26,31,37,0.95) 0%, rgba(36,44,53,0.95) 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(26, 31, 37, 0.95) 0%,
+          rgba(36, 44, 53, 0.95) 100%
+        );
         display: flex;
         flex-direction: column;
         position: relative;
@@ -41,11 +45,12 @@
 
       .game-screen {
         position: relative;
-        background: url('../assets/image/bgDialog.gif') center/cover no-repeat;
+        background: url("../assets/image/bgPlanting.webp") center/cover
+          no-repeat;
         flex-grow: 1;
         min-height: 0;
         overflow: hidden;
-        border-bottom: 2px solid rgba(255,255,255,0.1);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
       }
 
       .health-bar-container {
@@ -63,23 +68,23 @@
       .health-icon {
         font-size: 28px;
         color: #ff5555;
-        text-shadow: 0 0 10px rgba(255,85,85,0.5);
+        text-shadow: 0 0 10px rgba(255, 85, 85, 0.5);
       }
 
       .health-bar {
         flex-grow: 1;
         height: 12px;
-        background: rgba(255,255,255,0.1);
+        background: rgba(255, 255, 255, 0.1);
         border-radius: 6px;
         overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       .health-fill {
         width: 100%;
         height: 100%;
         background: linear-gradient(90deg, #ff5555, #ff7777);
-        box-shadow: 0 0 10px rgba(255,85,85,0.5);
+        box-shadow: 0 0 10px rgba(255, 85, 85, 0.5);
         transition: width 0.3s ease-out;
       }
 
@@ -90,18 +95,18 @@
         transform: translateX(-50%);
         width: 400px;
         height: 15px;
-        background: rgba(0,0,0,0.6);
+        background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(10px);
         border-radius: 8px;
         overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
       .progress-fill {
         height: 100%;
-        background: linear-gradient(90deg, #4CAF50, #81C784);
-        box-shadow: 0 0 10px rgba(76,175,80,0.5);
+        background: linear-gradient(90deg, #4caf50, #81c784);
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
         width: 0%;
         transition: width 0.5s ease-out;
       }
@@ -110,7 +115,7 @@
         position: absolute;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #4CAF50, #81C784);
+        background: linear-gradient(135deg, #4caf50, #81c784);
         border: none;
         color: white;
         padding: 12px 20px;
@@ -119,9 +124,9 @@
         border-radius: 12px;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .intro-overlay {
@@ -162,7 +167,7 @@
 
       #playMusicButton:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         background: linear-gradient(135deg, #45a049, #75b578);
       }
 
@@ -176,7 +181,7 @@
         left: 10%;
         width: 250px;
         height: 250px;
-        background-image: url('../assets/sprite/characterFight.png');
+        background-image: url("../assets/sprite/characterFight.png");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
@@ -190,7 +195,7 @@
 
       .plant {
         position: absolute;
-        bottom: 0px;
+        bottom: -10px;
         right: 10%;
         width: 500px;
         height: 500px;
@@ -206,23 +211,39 @@
       }
 
       @keyframes growPlant {
-        0% { transform: scale(0.9); opacity: 0.7; }
-        50% { transform: scale(1.1); opacity: 0.85; }
-        100% { transform: scale(1); opacity: 1; }
+        0% {
+          transform: scale(0.9);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.85;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
 
       @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px) rotate(-5deg); }
-        75% { transform: translateX(5px) rotate(5deg); }
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px) rotate(-5deg);
+        }
+        75% {
+          transform: translateX(5px) rotate(5deg);
+        }
       }
 
       .game-footer {
-        background: rgba(0,0,0,0.8);
+        background: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(10px);
         padding: 25px;
         min-height: 220px;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .question-container {
@@ -234,8 +255,8 @@
 
       .plant-info {
         padding: 20px;
-        background: rgba(76,175,80,0.1);
-        border: 1px solid rgba(76,175,80,0.2);
+        background: rgba(76, 175, 80, 0.1);
+        border: 1px solid rgba(76, 175, 80, 0.2);
         border-radius: 15px;
         width: 280px;
       }
@@ -248,9 +269,9 @@
 
       .question {
         flex-grow: 1;
-        background: rgba(255,255,255,0.05);
+        background: rgba(255, 255, 255, 0.05);
         padding: 25px;
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 15px;
         text-align: center;
         font-size: 20px;
@@ -280,9 +301,9 @@
       }
 
       .answer {
-        background: linear-gradient(135deg, #4CAF50, #81C784);
+        background: linear-gradient(135deg, #4caf50, #81c784);
         padding: 20px 25px;
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
         color: white;
         cursor: pointer;
@@ -294,7 +315,7 @@
 
       .answer:hover {
         transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         background: linear-gradient(135deg, #45a049, #75b578);
       }
 
@@ -304,7 +325,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.95);
+        background: rgba(0, 0, 0, 0.95);
         backdrop-filter: blur(10px);
         display: none;
         justify-content: center;
@@ -317,12 +338,12 @@
         font-size: 5em;
         margin-bottom: 40px;
         color: #fff;
-        text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
       }
 
       .restart-btn {
         padding: 20px 50px;
-        background: linear-gradient(135deg, #4CAF50, #81C784);
+        background: linear-gradient(135deg, #4caf50, #81c784);
         border: none;
         border-radius: 12px;
         color: white;
@@ -334,7 +355,7 @@
 
       .restart-btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
       }
 
       .victory-overlay {
@@ -360,7 +381,7 @@
       }
 
       .victory-text {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-size: 24px;
         color: #000;
         text-align: center;
@@ -376,14 +397,13 @@
     </style>
   </head>
   <body>
-    <!-- Add this right after the body tag -->
     <div class="intro-overlay" id="introOverlay">
-      <div class="intro-text">EcoQuest: Plant Evolution</div>
+      <div class="intro-text">Arcane EcoQuest</div>
     </div>
 
     <audio id="correctSound" src="../assets/sounds/Accept.mp3"></audio>
-    <audio id="wrongSound" src="../assets/sounds/wrong_answer.mp3"></audio>
-    <audio id="backgroundMusic" src="../assets/sounds/FightBS.mp3" loop></audio>
+    <audio id="wrongSound" src="../assets/sounds/huh.wav"></audio>
+    <audio id="backgroundMusic" src="../assets/sounds/bgEvolutionPlanting.mp3" loop></audio>
 
     <div class="game-container">
       <div class="game-screen">
@@ -431,29 +451,6 @@
     </div>
 
     <script>
-
-      // Separate initialization function
-      function initializeGame() {
-        updateHealth();
-        updatePlantStage();
-        displayQuestion();
-      }
-
-      // Handle intro sequence
-      document.addEventListener('DOMContentLoaded', function() {
-        // Show intro for 2 seconds before fading out
-        setTimeout(() => {
-          const overlay = document.getElementById('introOverlay');
-          if (overlay) {
-            overlay.classList.add('fade-out');
-          }
-        }, 2000);
-
-        // Initialize game after fade completes
-        setTimeout(() => {
-          initializeGame();
-        }, 3500);
-      });
       let currentStage = 0;
       let wrongAnswers = 0;
       let playerHealth = 100;
@@ -464,20 +461,55 @@
       const healthDecrement = 33.33;
       let usedQuestions = [];
       let currentQuestion = null;
+      let isMoving = false;
 
       const backgroundMusic = document.getElementById("backgroundMusic");
       backgroundMusic.volume = 0.1;
 
-      let isMoving = false;
+      function initializeGame() {
+        updateHealth();
+        updatePlantStage();
+        displayQuestion();
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+          const overlay = document.getElementById("introOverlay");
+          if (overlay) {
+            overlay.classList.add("fade-out");
+          }
+        }, 2000);
+
+        setTimeout(() => {
+          initializeGame();
+        }, 3500);
+      });
 
       function toggleMusic() {
         if (backgroundMusic.paused) {
           backgroundMusic.play();
-          document.getElementById("playMusicButton").textContent = "Pause Music";
+          document.getElementById("playMusicButton").textContent =
+            "Pause Music";
         } else {
           backgroundMusic.pause();
           document.getElementById("playMusicButton").textContent = "Play Music";
         }
+      }
+
+      function handleTimeOut() {
+        clearInterval(timerInterval);
+        document.getElementById("wrongSound").play();
+        wrongAnswers++;
+        playerHealth -= healthDecrement;
+        updateHealth();
+        shakeButton();
+
+        if (wrongAnswers >= maxWrongAnswers) {
+          endGame(false);
+          return;
+        }
+
+        displayQuestion();
       }
 
       function updateHealth() {
@@ -508,23 +540,30 @@
       }
 
       function updateTimerDisplay() {
-        document.getElementById("timer").textContent = timeLeft;
+        const timerElement = document.getElementById("timer");
+        if (timerElement) {
+          timerElement.textContent = timeLeft;
+          if (timeLeft <= 5) {
+            timerElement.style.color = "#ff5555";
+          } else {
+            timerElement.style.color = "#fff";
+          }
+        }
       }
 
       async function moveCharacter() {
         if (isMoving) return;
-        
+
         isMoving = true;
-        const character = document.getElementById('character');
-        character.classList.add('move-right');
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        character.classList.remove('move-right');
-        
-        await new Promise(resolve => setTimeout(resolve
-        , 300));
-        
+        const character = document.getElementById("character");
+        character.classList.add("move-right");
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        character.classList.remove("move-right");
+
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
         isMoving = false;
       }
 
@@ -534,33 +573,42 @@
         const progressBar = document.getElementById("progressBar");
 
         plant.style.backgroundImage = `url(${plantStages[currentStage].image})`;
-        plantStageText.textContent = `Stage ${currentStage + 1}: ${plantStages[currentStage].name}`;
-        progressBar.style.width = `${(currentStage / (questionCount - 1)) * 100}%`;
+        plantStageText.textContent = `Stage ${currentStage + 1}: ${
+          plantStages[currentStage].name
+        }`;
+        progressBar.style.width = `${
+          (currentStage / (questionCount - 1)) * 100
+        }%`;
         plant.classList.add("plant-evolution");
         setTimeout(() => plant.classList.remove("plant-evolution"), 500);
       }
 
       function getRandomQuestion() {
-        const availableQuestions = questions.filter(q => !usedQuestions.includes(q));
-        
+        const availableQuestions = questions.filter(
+          (q) => !usedQuestions.includes(q)
+        );
+
         if (availableQuestions.length === 0) {
           usedQuestions = [];
           return questions[Math.floor(Math.random() * questions.length)];
         }
-        
-        const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+
+        const randomIndex = Math.floor(
+          Math.random() * availableQuestions.length
+        );
         const selectedQuestion = availableQuestions[randomIndex];
-        
+
         usedQuestions.push(selectedQuestion);
-        
+
         return selectedQuestion;
       }
 
       function displayQuestion() {
         currentQuestion = getRandomQuestion();
-        
-        document.getElementById("question").innerHTML = 
-          `<div class="timer" id="timer">12</div>${currentQuestion.question}`;
+
+        document.getElementById(
+          "question"
+        ).innerHTML = `<div class="timer" id="timer">12</div>${currentQuestion.question}`;
 
         const answersContainer = document.getElementById("answers");
         answersContainer.innerHTML = "";
@@ -577,86 +625,79 @@
       }
 
       async function checkAnswer(selectedIndex) {
-    clearInterval(timerInterval);
-    const correct = currentQuestion.correct === selectedIndex;
+        clearInterval(timerInterval);
+        const correct = currentQuestion.correct === selectedIndex;
 
-    if (correct) {
-        document.getElementById("correctSound").play();
-        await moveCharacter();
-        
-        // Increment stage setelah jawaban benar
-        currentStage++;
-        
-        // Cek apakah ini adalah stage terakhir (9 karena array dimulai dari 0)
-        if (currentStage === questionCount - 1) {
-            updatePlantStage(); // Update tampilan plant terakhir
-            endGame(true);  // Langsung panggil victory
+        if (correct) {
+          document.getElementById("correctSound").play();
+          await moveCharacter();
+
+          currentStage++;
+
+          if (currentStage === questionCount - 1) {
+            updatePlantStage();
+            endGame(true);
             return;
-        }
-        
-        updatePlantStage();
-    } else {
-        document.getElementById("wrongSound").play();
-        wrongAnswers++;
-        playerHealth -= healthDecrement;
-        updateHealth();
-        shakeButton();
-        
-        if (wrongAnswers >= maxWrongAnswers) {
+          }
+
+          updatePlantStage();
+        } else {
+          document.getElementById("wrongSound").play();
+          wrongAnswers++;
+          playerHealth -= healthDecrement;
+          updateHealth();
+          shakeButton();
+
+          if (wrongAnswers >= maxWrongAnswers) {
             endGame(false);
             return;
+          }
         }
-    }
 
-    displayQuestion();
-}
+        displayQuestion();
+      }
 
-function endGame(isVictory) {
-    clearInterval(timerInterval);
+      function endGame(isVictory) {
+        clearInterval(timerInterval);
 
-    if (isVictory) {
-        console.log("Victory triggered!"); // Debugging
-        const victoryOverlay = document.getElementById('victoryOverlay');
-        if (!victoryOverlay) {
-            console.error("Victory overlay element not found!"); // Debugging
+        if (isVictory) {
+          const victoryOverlay = document.getElementById("victoryOverlay");
+          if (!victoryOverlay) {
+            console.error("Victory overlay element not found!");
             return;
-        }
-        
-        // Show the overlay first
-        victoryOverlay.classList.add('active');
-        
-        // Wait for overlay animation and text to complete before redirecting
-        setTimeout(() => {
-            console.log("Redirecting..."); // Debugging
+          }
+
+          victoryOverlay.classList.add("active");
+
+          setTimeout(() => {
             window.location.href = "../html/VictoryScene.html";
-        }, 3000); // 3 seconds delay
-    } else {
-        const gameOver = document.getElementById("gameOver");
-        const gameOverText = document.getElementById("gameOverText");
-        gameOver.style.display = "flex";
-        gameOverText.textContent = "Game Over";
-        document.getElementById("restartButton").style.display = "block";
-    }
-}
+          }, 5000);
+        } else {
+          const gameOver = document.getElementById("gameOver");
+          const gameOverText = document.getElementById("gameOverText");
+          gameOver.style.display = "flex";
+          gameOverText.textContent = "Game Over";
+          document.getElementById("restartButton").style.display = "block";
+        }
+      }
 
-// Pastikan constant questionCount sesuai dengan jumlah stage
-
-
-    function restartGame() {
+      function restartGame() {
+        clearInterval(timerInterval);
         currentStage = 0;
         wrongAnswers = 0;
         playerHealth = 100;
         usedQuestions = [];
         currentQuestion = null;
-        
+        timeLeft = 12;
+
         updateHealth();
         updatePlantStage();
-        
+
         document.getElementById("gameOver").style.display = "none";
-        document.getElementById("victoryOverlay").classList.remove('active');
-        
+        document.getElementById("victoryOverlay").classList.remove("active");
+
         displayQuestion();
-    }
+      }
 
       const plantStages = [
         { name: "Dormant", image: "../assets/sprite/lumorra1.png" },
@@ -668,114 +709,268 @@ function endGame(isVictory) {
         { name: "Budding", image: "../assets/sprite/lumorra7.png" },
         { name: "Flowering", image: "../assets/sprite/lumorra8.png" },
         { name: "Blooming", image: "../assets/sprite/lumorra9.png" },
-        { name: "Flourishing", image: "../assets/sprite/lumorra10.png" }
+        { name: "Flourishing", image: "../assets/sprite/lumorra10.png" },
       ];
 
       const questions = [
-    {
-        question: "Apa yang dibutuhkan tanaman untuk tumbuh?",
-        answers: [
-            "Hanya air",
-            "Hanya sinar matahari",
-            "Air, sinar matahari, dan nutrisi",
-            "Hanya nutrisi"
-        ],
-        correct: 2
-    },
-    {
-        question: "Bagian tanaman mana yang menyerap air dan nutrisi dari tanah?",
-        answers: [
-            "Daun",
-            "Batang",
-            "Akar",
-            "Bunga"
-        ],
-        correct: 2
-    },
-    {
-        question: "Proses apa yang digunakan tanaman untuk membuat makanannya sendiri?",
-        answers: [
-            "Fotosintesis",
-            "Pencernaan",
-            "Penyerapan",
-            "Respirasi"
-        ],
-        correct: 0
-    },
-    {
-        question: "Gas apa yang diserap tanaman selama fotosintesis?",
-        answers: [
-            "Oksigen",
-            "Karbon dioksida",
-            "Nitrogen",
-            "Hidrogen"
-        ],
-        correct: 1
-    },
-    {
-        question: "Apa fungsi utama daun pada tanaman?",
-        answers: [
-            "Menyimpan air",
-            "Mendukung tanaman",
-            "Membuat makanan melalui fotosintesis",
-            "Menyerap nutrisi"
-        ],
-        correct: 2
-    },
-    {
-        question: "Bagian tanaman mana yang membantu dalam reproduksi?",
-        answers: [
-            "Akar",
-            "Batang",
-            "Daun",
-            "Bunga"
-        ],
-        correct: 3
-    },
-    {
-        question: "Apa yang membantu tanaman mengangkut air dan nutrisi ke seluruh tubuhnya?",
-        answers: [
-            "Akar",
-            "Sistem vaskular",
-            "Daun",
-            "Klorofil"
-        ],
-        correct: 1
-    },
-    {
-        question: "Apa warna klorofil, pigmen yang membantu tanaman membuat makanan?",
-        answers: [
-            "Merah",
-            "Biru",
-            "Hijau",
-            "Kuning"
-        ],
-        correct: 2
-    },
-    {
-        question: "Bagaimana cara tanaman membantu menjaga atmosfer Bumi?",
-        answers: [
-            "Dengan menghasilkan oksigen",
-            "Dengan menghasilkan karbon dioksida",
-            "Dengan menyerap oksigen",
-            "Dengan menyimpan nitrogen"
-        ],
-        correct: 0
-    },
-    {
-        question: "Apa proses pergerakan air yang naik melalui tanaman disebut?",
-        answers: [
-            "Penyerapan",
-            "Transpirasi",
-            "Kondensasi",
-            "Evaporasi"
-        ],
-        correct: 1
-    }
-];
+        {
+          question: "Apa yang dibutuhkan tumbuhan untuk tumbuh dengan baik?",
+          answers: [
+            "A. Udara, air, tanah, dan sinar matahari",
+            "B. Hanya air dan tanah",
+            "C. Hanya sinar matahari",
+            "D. Hanya udara",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Bagaimana tumbuhan memperoleh makanan?",
+          answers: [
+            "A. Dengan makan makanan seperti manusia",
+            "B. Melalui fotosintesis",
+            "C. Dengan minum air",
+            "D. Melalui akar",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa yang dimaksud dengan fotosintesis?",
+          answers: [
+            "A. Proses tumbuhan menghasilkan oksigen",
+            "B. Proses tumbuhan membuat makanan dengan bantuan sinar matahari",
+            "C. Proses tumbuhan menyerap air dari tanah",
+            "D. Proses tumbuhan menghasilkan karbon dioksida",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa yang dilakukan akar pada tumbuhan?",
+          answers: [
+            "A. Menyerap air dan mineral dari tanah",
+            "B. Menyerap cahaya matahari",
+            "C. Membuat makanan",
+            "D. Menghasilkan oksigen",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Bagaimana tumbuhan menghasilkan oksigen?",
+          answers: [
+            "A. Melalui daun",
+            "B. Melalui akar",
+            "C. Melalui bunga",
+            "D. Melalui batang",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Apa yang disebut dengan bunga pada tumbuhan?",
+          answers: [
+            "A. Bagian yang menyerap air",
+            "B. Bagian yang menghasilkan biji",
+            "C. Bagian yang menghasilakan daun",
+            "D. Bagian yang mengeluarkan karbon dioksida",
+          ],
+          correct: 1,
+        },
+        {
+          question:
+            "Apa yang terjadi jika tumbuhan tidak mendapatkan cukup air?",
+          answers: [
+            "A. Tumbuhan akan tumbuh lebih cepat",
+            "B. Tumbuhan akan layu",
+            "C. Tumbuhan akan menghasilkan lebih banyak bunga",
+            "D. Tumbuhan akan tumbuh lebih besar",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa itu biji pada tumbuhan?",
+          answers: [
+            "A. Bagian yang tumbuh di atas tanah",
+            "B. Bagian yang dapat berkembang menjadi tumbuhan baru",
+            "C. Bagian yang menyerap sinar matahari",
+            "D. Bagian yang mengatur fotosintesis",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Tumbuhan mana yang tidak memiliki bunga?",
+          answers: ["A. Mawar", "B. Kelapa", "C. Pohon cemara", "D. Melati"],
+          correct: 2,
+        },
+        {
+          question: "Apa yang dimaksud dengan daun?",
+          answers: [
+            "A. Bagian yang menyerap sinar matahari dan menghasilkan makanan",
+            "B. Bagian yang menyerap air",
+            "C. Bagian yang mengikat tanah",
+            "D. Bagian yang menghasilkan biji",
+          ],
+          correct: 0,
+        },
+        {
+          question:
+            "Apa yang terjadi pada tumbuhan yang tidak mendapatkan sinar matahari?",
+          answers: [
+            "A. Tumbuhan akan tumbuh dengan cepat",
+            "B. Tumbuhan akan kekurangan makanan",
+            "C. Tumbuhan akan menghasilkan bunga lebih banyak",
+            "D. Tumbuhan akan bertambah besar",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Tumbuhan yang tumbuh di air disebut apa?",
+          answers: [
+            "A. Tumbuhan darat",
+            "B. Tumbuhan air",
+            "C. Tumbuhan hutan",
+            "D. Tumbuhan gurun",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa itu fotosintesis pada tumbuhan?",
+          answers: [
+            "A. Proses tumbuhan mengubah air menjadi oksigen",
+            "B. Proses tumbuhan mengubah cahaya matahari menjadi makanan",
+            "C. Proses tumbuhan mengubah udara menjadi air",
+            "D. Proses tumbuhan mengubah tanah menjadi makanan",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Tumbuhan apa yang memiliki akar tunggang?",
+          answers: ["A. Pisang", "B. Durian", "C. Mangga", "D. Pohon kelapa"],
+          correct: 2,
+        },
+        {
+          question: "Apa yang dimaksud dengan batang pada tumbuhan?",
+          answers: [
+            "A. Bagian yang menyerap air dari tanah",
+            "B. Bagian yang mengangkut air dan makanan ke seluruh tubuh tumbuhan",
+            "C. Bagian yang menghasilkan biji",
+            "D. Bagian yang menghasilkan bunga",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Tumbuhan apa yang sering dijadikan tanaman hias di rumah?",
+          answers: ["A. Padi", "B. Kaktus", "C. Jagung", "D. Terong"],
+          correct: 1,
+        },
+        {
+          question: "Apa yang dimaksud dengan buah?",
+          answers: [
+            "A. Bagian yang mengandung biji dan tumbuh setelah bunga mekar",
+            "B. Bagian yang mengandung air",
+            "C. Bagian yang menyerap sinar matahari",
+            "D. Bagian yang mengatur fotosintesis",
+          ],
+          correct: 0,
+        },
+        {
+          question:
+            "Bagaimana cara biji tumbuhan berkembang menjadi tumbuhan baru?",
+          answers: [
+            "A. Dengan mengeluarkan akar dan batang baru",
+            "B. Dengan mengeluarkan bunga",
+            "C. Dengan mengeluarkan daun",
+            "D. Dengan menyerap sinar matahari",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Tumbuhan apa yang dapat hidup di daerah kering dan panas?",
+          answers: ["A. Cendawan", "B. Kaktus", "C. Kelapa", "D. Padi"],
+          correct: 1,
+        },
+        {
+          question: "Apa yang terjadi jika tanaman kekurangan cahaya matahari?",
+          answers: [
+            "A. Tanaman tumbuh lebih besar",
+            "B. Tanaman lebih cepat menghasilkan biji",
+            "C. Tanaman tumbuh lebih cepat",
+            "D. Tanaman menjadi kekurangan makanan dan layu",
+          ],
+          correct: 3,
+        },
+        {
+          question:
+            "Tanaman apa yang bisa dijadikan bahan untuk membuat kertas?",
+          answers: [
+            "A. Pohon kelapa",
+            "B. Pohon jati",
+            "C. Pohon bambu",
+            "D. Pohon pinus",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa yang dimaksud dengan polinasi?",
+          answers: [
+            "A. Proses penyebaran biji ke tanah",
+            "B. Proses penyebaran serbuk sari dari bunga jantan ke bunga betina",
+            "C. Proses tumbuhan menyerap air",
+            "D. Proses mengubah makanan menjadi oksigen",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa itu tanaman obat?",
+          answers: [
+            "A. Tanaman yang digunakan untuk membuat pakaian",
+            "B. Tanaman yang digunakan untuk pengobatan",
+            "C. Tanaman yang menghasilkan biji",
+            "D. Tanaman yang hanya hidup di hutan",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa yang dimaksud dengan hutan tropis?",
+          answers: [
+            "A. Hutan yang tumbuh di daerah dingin",
+            "B. Hutan yang tumbuh di daerah panas dan lembap",
+            "C. Hutan yang memiliki sedikit tumbuhan",
+            "D. Hutan yang tumbuh di dataran tinggi",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa itu tumbuhan merambat?",
+          answers: [
+            "A. Tumbuhan yang tumbuh di bawah tanah",
+            "B. Tumbuhan yang tumbuh menjalar di tanah atau pada benda lain",
+            "C. Tumbuhan yang tidak memerlukan air",
+            "D. Tumbuhan yang tumbuh tinggi",
+          ],
+          correct: 1,
+        },
+        {
+          question:
+            "Tanaman mana yang bisa hidup di daerah yang kekurangan air?",
+          answers: [
+            "A. Pohon kelapa",
+            "B. Kaktus",
+            "C. Padi",
+            "D. Pohon mangga",
+          ],
+          correct: 1,
+        },
+        {
+          question: "Apa itu daun yang berfungsi untuk menyimpan air?",
+          answers: [
+            "A. Daun yang tipis",
+            "B. Daun yang besar",
+            "C. Daun yang berduri",
+            "D. Daun yang tebal dan berdaging",
+          ],
+          correct: 3,
+        },
+      ];
 
-
-      window.onload = function() {
+      window.onload = function () {
         updateHealth();
         updatePlantStage();
         displayQuestion();
