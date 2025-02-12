@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             character.style.cursor = "pointer";
             character.addEventListener("click", function () {
-                window.location.href = `../html/finnMission.html?character=${characterName}`;
+                window.location.href = `../html/GameEnding.html?character=${characterName}`;
             });
         }
     });

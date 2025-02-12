@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const characters = document.querySelectorAll(".img-character img");
-    const lockedCharacters = ["kael", "lyra", "finn"]; // Karakter yang terkunci
+    const lockedCharacters = ["kael", "lyra", "elden"]; // Karakter yang terkunci
     
     characters.forEach(character => {
         const characterName = character.alt.toLowerCase();
