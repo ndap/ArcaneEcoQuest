@@ -6,36 +6,6 @@
     <title>Scene Victory | EcoQuest</title>
     <link rel="stylesheet" href="../css/VictoryScene.css">
 </head>
-<style>
-      #playButton {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1000;
-        background-color: green;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 15px;
-      }
-      #skipButton {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        background-color: green;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        display: none;
-        border-radius: 15px;
-      }
-    </style>
 <body>
     <!-- Play Button -->
     <button id="playButton">Play Video</button>
@@ -54,26 +24,5 @@
   </div>
   
     <script src="../js/VictoryScene.js"></script>
-    <script>
-      document
-        .getElementById("playButton")
-        .addEventListener("click", function () {
-          var video = document.getElementById("videoPlayer");
-          video.play();
-          document.getElementById("skipButton").style.display = "block";
-        });
-
-      document
-        .getElementById("skipButton")
-        .addEventListener("click", function () {
-          window.location.href = "scenedialog.html";
-        });
-
-      document
-        .getElementById("videoPlayer")
-        .addEventListener("play", function () {
-          document.getElementById("playButton").style.display = "none";
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,319 @@
+body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-image: url("../assets/image/bgKaelGames.webp");
+        background-repeat: repeat; /* Make the background repeat */
+        background-position: top left; /* Position the background at the top-left */
+      }
+
+      #game-container {
+        width: 100%;
+        height: 100%;
+        cursor: default;
+        transform-origin: center;
+        position: relative;
+      }
+
+      #game-container.grabbing {
+        cursor: grabbing;
+      }
+
+      .tile {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        background-size: 32px 32px;
+        image-rendering: pixelated;
+      }
+
+      .mirrored {
+        transform: scaleX(-1); /* Efek mirroring secara horizontal */
+      }
+
+      .dirt {
+        background-image: url("../assets/tileMap/dirt.png");
+      }
+
+      .grass-top {
+        background-image: url("../assets/tileMap/grass.png");
+      }
+
+      .grass-left {
+        background-image: url("../assets/tileMap/grass.png");
+      }
+
+      .grass-right {
+        background-image: url("../assets/tileMap/grass.png");
+      }
+
+      .grass-bottom {
+        background-image: url("../assets/tileMap/grass.png");
+        transform: rotate(180deg);
+      }
+
+      .cloud {
+        position: absolute;
+        background-color: white;
+        border-radius: 20px;
+        opacity: 0.9;
+        animation: floatCloud 20s linear infinite;
+        z-index: 9999;
+      }
+
+      @keyframes floatCloud {
+        from {
+          transform: translateX(100vw);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      .plant-indicator {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        pointer-events: none;
+        animation: bounce 1s infinite;
+        background-image: url("../assets/tileMap/vectorDown.png");
+        background-size: contain;
+        z-index: 2;
+      }
+
+      /* Add pseudo-element for the box below the arrow */
+      .plant-indicator::after {
+        content: '';
+        position: absolute;
+        width: 24px;           /* Smaller width */
+        height: 24px;          /* Smaller height */
+        border: 2px solid #ffffff;  /* White border */
+        border-radius: 4px;    /* Slightly rounded corners */
+        background-color: rgba(0, 0, 0, 0.2);  /* Semi-transparent background */
+        left: 50%;            /* Center horizontally */
+        transform: translateX(-50%);  /* Adjust for centering */
+        top: 100%;           /* Position below the arrow */
+        margin-top: 5px;     /* Small gap between arrow and box */
+        z-index: 1;          /* Below the arrow */
+      }
+
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .tree {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        background-size: contain;
+        z-index: 1;
+        transition: background-image 0.5s;
+      }
+
+      #tree-counter {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* // Add these styles to your existing CSS */
+      .tree-container {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+      }
+
+      .growth-timer {
+        position: absolute;
+        top: -20px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 12px;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+      #kael-image {
+        position: fixed;
+        bottom: -140px; /* Posisi di bawah */
+        left: 10px; /* Posisi di kiri */
+        width: 250px; /* Ukuran gambar */
+        height: auto; /* Sesuaikan tinggi secara otomatis */
+        z-index: 9999; /* Pastikan berada di atas elemen lainnya */
+      }
+
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+      }
+
+      .popup-content {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+      }
+
+      .popup h2 {
+        margin-bottom: 20px;
+      }
+
+      /* Animasi Popup */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounceIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.3);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Styling untuk tombol */
+      .popup button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .popup button:hover {
+        background-color: #45a049;
+      }
+
+      /* Styling untuk tombol Play Sound */
+      #play-sound-btn {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #edfceb;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        padding: 15px;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+        z-index: 99999;
+      }
+
+      #play-sound-btn:hover {
+        background-color: #adeca1;
+      }
+
+      #leaf-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Agar tidak mengganggu interaksi dengan elemen lain */
+        z-index: 1000;
+      }
+
+      .leaf {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-image: url("../assets/sprite/daun.png"); /* Gambar daun */
+        background-size: contain;
+        animation: fall 10s linear infinite, rotate 5s linear infinite;
+        opacity: 0;
+        z-index: 99999;
+      }
+
+      @keyframes fall {
+        0% {
+          top: -30px;
+          opacity: 1;
+        }
+        100% {
+          top: 100%;
+          opacity: 0;
+        }
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Style dasar untuk fade-out */
+#fade-out {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 99999;  /* Pastikan berada di atas konten */
+  opacity: 1;
+  transition: opacity 2s ease-out;
+}
+
+/* Style untuk konten yang akan muncul setelah fade-out */
+#content {
+  display: none; /* Konten disembunyikan saat halaman pertama kali dimuat */
+  text-align: center;
+  padding-top: 20%;
+}

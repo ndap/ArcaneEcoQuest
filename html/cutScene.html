@@ -4,37 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Story Page | EcoQuest</title>
-    <link rel="stylesheet" href="../css/cutScene.css" />
-    <style>
-      #playButton {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1000;
-        background-color: green;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 15px;
-      }
-      #skipButton {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        background-color: green;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        display: none;
-        border-radius: 15px;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/cutScene.css">
   </head>
   <body>
     <!-- Play Button -->
@@ -55,26 +25,5 @@
     </div>
 
     <script src="../js/cutScene.js"></script>
-    <script>
-      document
-        .getElementById("playButton")
-        .addEventListener("click", function () {
-          var video = document.getElementById("videoPlayer");
-          video.play();
-          document.getElementById("skipButton").style.display = "block";
-        });
-
-      document
-        .getElementById("skipButton")
-        .addEventListener("click", function () {
-          window.location.href = "../html/evolutionLumorra.html";
-        });
-
-      document
-        .getElementById("videoPlayer")
-        .addEventListener("play", function () {
-          document.getElementById("playButton").style.display = "none";
-        });
-    </script>
   </body>
 </html>
