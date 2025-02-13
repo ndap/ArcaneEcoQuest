@@ -88,4 +88,42 @@ img {
     box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan inset saat ditekan */
 }
 
+#video-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 9999;
+}
 
+#character-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+#close-video {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+#skip-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}

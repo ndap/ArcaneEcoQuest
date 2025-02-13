@@ -3,113 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credits | EcoQuest</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #000;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .credits-container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            perspective: 400px;
-        }
-
-        .credits-content {
-            position: absolute;
-            width: 80%;
-            max-width: 800px;
-            text-align: center;
-            transform-origin: 50% 100%;
-            transform: translateY(100vh) rotateX(25deg);
-            animation: scroll-credits 60s linear forwards;
-        }
-
-        @keyframes scroll-credits {
-            0% {
-                transform: translateY(100vh) rotateX(25deg);
-            }
-            100% {
-                transform: translateY(-250vh) rotateX(25deg);
-            }
-        }
-
-        .credit-section {
-            margin: 60px 0;
-            opacity: 0;
-            animation: fade-in 1s ease-in forwards;
-        }
-
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .credit-title {
-            font-size: 48px;
-            color: #4CAF50;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .credit-subtitle {
-            font-size: 36px;
-            color: #81C784;
-            margin: 30px 0;
-        }
-
-        .credit-name {
-            font-size: 24px;
-            margin: 15px 0;
-            color: #fff;
-        }
-
-        .credit-role {
-            font-size: 20px;
-            color: #aaa;
-            margin: 10px 0 30px 0;
-        }
-
-        .special-thanks {
-            font-size: 28px;
-            color: #81C784;
-            margin: 50px 0;
-        }
-
-        .copyright {
-            font-size: 18px;
-            color: #666;
-            margin-top: 60px;
-        }
-
-        .next-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 15px 30px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .next-button:hover {
-            background: #45a049;
-        }
-    </style>
+    <title>TheEnding | EcoQuest</title>
+    <link rel="stylesheet" href="../css/TheEnd.css">
 </head>
 <body>
     <div class="credits-container">
@@ -124,8 +19,6 @@
                 <div class="credit-name">Dapa</div>
                 <div class="credit-name">Rino</div>
             </div>
-
-            
 
             <div class="credit-section">
                 <div class="credit-subtitle">Source assets</div>
@@ -154,21 +47,13 @@
             </div>
 
             <div class="credit-section">
-                <div class="copyright">© 2024 ArcaneEco Quest. All Rights Reserved.</div>
+                <div class="copyright">© 2024 ArcaneEcoQuest. All Rights Reserved.</div>
             </div>
         </div>
     </div>
 
     <button class="next-button" onclick="window.location.href='../html/chooseChar5.html'">Back To Choose Character</button>
 
-    <script>
-        // Auto-play background music jika ada
-        window.onload = function() {
-            // Opsional: tambahkan musik background
-            const bgMusic = new Audio('../assets/sounds/RoyaltyFantasy.mp3'); // Sesuaikan path musik
-            bgMusic.volume = 0.3;
-            bgMusic.play();
-        }
-    </script>
+    <script src="../js/TheEnd.js"></script>
 </body>
 </html>

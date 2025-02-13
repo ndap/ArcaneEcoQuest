@@ -1,0 +1,264 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-image: url("../assets/image/bgSeleneGames.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Add new animation styles */
+  @keyframes flash {
+    0% {
+      background: rgba(255, 255, 255, 0);
+    }
+    50% {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    100% {
+      background: rgba(255, 255, 255, 0);
+    }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-5px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(5px);
+    }
+  }
+
+  .flash-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 150;
+    animation: flash 0.3s ease-out;
+  }
+
+  .shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  #gameContainer {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    visibility: hidden;
+  }
+  #player {
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translateX(-50%);
+    background-image: url("../assets/sprite/selene.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: left;
+    animation: playerIdle 1s ease-in-out infinite;
+  }
+  #audioControls {
+    position: fixed;
+    bottom: 20px; /* Changed from top to bottom */
+    right: 20px;
+    z-index: 1000;
+  }
+
+  #audioControls button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Added shadow for better visibility */
+  }
+
+  #audioControls button:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1); /* Added scale effect on hover */
+  }
+
+  #audioControls button:active {
+    transform: scale(0.95); /* Added press effect */
+  }
+
+  .sprinting {
+    transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  .falling-object {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    transition: top 0.016s linear, left 0.016s linear;
+  }
+
+  .sun {
+    background: #ffd700;
+    box-shadow: 0 0 15px #ffd700;
+  }
+  .dark-sun {
+    background: #4a4a4a;
+    box-shadow: 0 0 15px #4a4a4a;
+  }
+  #ui {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+  }
+  #lives {
+    display: flex;
+    gap: 10px;
+  }
+  .life {
+    color: red;
+    font-size: 24px;
+    text-shadow: 0 0 10px red;
+  }
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px 40px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    z-index: 200;
+  }
+  .popup button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background: #ffd700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  .popup button:hover {
+    background: #ffed4a;
+  }
+  #gameOver,
+  #victory {
+    display: none;
+  }
+  .smoke {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    animation: smoke 1s forwards;
+  }
+  @keyframes smoke {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+  @keyframes playerIdle {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(0px);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-5px);
+    }
+  }
+  .player-left {
+    transform: translateX(-50%) scaleX(-1) !important;
+  }
+  .game-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+  #videoContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 1000;
+    display: none;
+  }
+  #endVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #fade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    z-index: 999999; /* agar berada di atas konten */
+    opacity: 1;
+    animation: fadeOut 2s ease-in-out forwards;
+  }
+
+  #content {
+    padding: 20px;
+    z-index: 1;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }

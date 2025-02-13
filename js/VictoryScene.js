@@ -30,3 +30,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000); // Durasi layar loading
   });
 });
+
+document
+        .getElementById("playButton")
+        .addEventListener("click", function () {
+          var video = document.getElementById("videoPlayer");
+          video.play();
+          document.getElementById("skipButton").style.display = "block";
+        });
+
+      document
+        .getElementById("skipButton")
+        .addEventListener("click", function () {
+          window.location.href = "scenedialog.html";
+        });
+
+      document
+        .getElementById("videoPlayer")
+        .addEventListener("play", function () {
+          document.getElementById("playButton").style.display = "none";
+        });

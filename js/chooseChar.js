@@ -65,3 +65,18 @@ window.addEventListener("load", function () {
   pauseButton.style.display = "inline-block";
 });
 
+// Add this to your existing JavaScript file or create a new script
+function closePopup() {
+    const popup = document.querySelector('.popup-overlay');
+    popup.classList.remove('active');
+    const bgMusic = document.getElementById('background-music');
+    bgMusic.volume = 0.12;
+    bgMusic.play();
+
+}
+
+// Show popup when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.querySelector('.popup-overlay');
+    popup.classList.add('active');
+});
